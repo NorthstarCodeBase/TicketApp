@@ -1,0 +1,121 @@
+App As appinfo:
+    BackEnabled: =false
+    OnStart: |
+        =ClearCollect(
+            colTabs,
+            {
+                Title: "My Tickets",
+                ID: 2,
+                Logo: Icon.LogJournal
+            },
+            {
+                Title: "Overdue Tickets",
+                ID: 4,
+                Logo: Icon.Clock
+            },
+            {
+                Title: "Information",
+                ID: 5,
+                Logo: Icon.Information
+            },
+            {
+                Title: "Report",
+                ID: 6,
+                Logo: Icon.Trending
+            },
+            {
+                Title: "My Tasks",
+                ID: 3,
+                Logo: Icon.Alarm
+            },
+            {
+                Title: "All Tickets",
+                ID: 1,
+                Logo: Icon.Tag
+            }
+        );
+        ClearCollect(
+            colFilters,
+            {Value: "All"}
+        );
+        Collect(
+            colFilters,
+            Choices(Corrective_Maintenance.Status)
+        );
+        ClearCollect(
+            colPriority,
+            {Value: "All"}
+        );
+        Collect(
+            colPriority,
+            Choices(Corrective_Maintenance.Priority)
+        );
+        ClearCollect(
+            colAdmin,
+            "thanh.le@northstar.vn",
+            "tung.le@northstar.vn",
+            "nghia.nguyen@northstar.vn",
+            "Hai.Vu@northstar.vn",
+            "tung.pham@northstar.vn",
+            "Tony.Nguyen@northstar.vn",
+            "kenny.phung@northstar.vn",
+            "quan.vu@northstar.vn",
+            "chuong.nguyen@northstar.vn"
+        );
+        If(
+            User().Email in colAdmin,
+            Concurrent(
+                Set(
+                    _varroleadmin,
+                    true
+                ),
+                Collect(
+                    colTabs,
+                    {
+                        Title: "My Tasks",
+                        ID: 3,
+                        Logo: Icon.Alarm
+                    }
+                )
+            )
+        );
+        If(
+            User().Email in colAdmin,
+            Set(
+                varTabSelected,
+                1
+            ),
+            Set(
+                varTabSelected,
+                2
+            )
+        );
+        Set(
+            varsmallScreen,
+            false
+        );
+        If(
+            !IsBlank(Param("ID")),
+            Set(
+                varItem,
+                LookUp(
+                    Corrective_Maintenance,
+                    ID = Value(Param("ID"))
+                )
+            )
+        );
+    StartScreen: |-
+        =Switch(
+            Param("startscreen"),
+            "FormScreen",
+            'Form Screen'
+        )
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+

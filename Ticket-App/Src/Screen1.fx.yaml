@@ -1,0 +1,61 @@
+Screen1 As screen:
+    Fill: =RGBA(247, 245, 236, 0)
+    Height: =App.Height
+    LoadingSpinnerColor: =RGBA(30, 14, 91, 1)
+    Width: =App.Width
+
+    Container8 As groupContainer.verticalAutoLayoutContainer:
+        ContentLanguage: =
+        Height: =768
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        Width: =Parent.Width
+        ZIndex: =9
+
+        Container9 As groupContainer.verticalAutoLayoutContainer:
+            ContentLanguage: =""  
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width
+            ZIndex: =1
+
+            Container1 As groupContainer.verticalAutoLayoutContainer:
+                DropShadow: =DropShadow.Light
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                RadiusBottomLeft: =4
+                RadiusBottomRight: =4
+                RadiusTopLeft: =4
+                RadiusTopRight: =4
+                ZIndex: =2
+
+                PowerBI1 As powerbi:
+                    AlignInContainer: =AlignInContainer.Center
+                    BorderColor: =RGBA(92, 74, 168, 1)
+                    DashboardId: ="81b0ed0e-725e-4271-b56d-1307e365d58a"
+                    FillPortions: =1
+                    TileUrl: |-
+                        ="https://app.powerbi.com/embed?dashboardId=81b0ed0e-725e-4271-b56d-1307e365d58a&tileId=f45021a4-c5e7-4d1a-9e6a-2dc3d32e57e8&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLUVBU1QtQVNJQS1BLVBSSU1BUlktcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQiLCJlbWJlZEZlYXR1cmVzIjp7fX0%3d"
+                    Width: =Parent.Width
+                    WorkspaceId: ="9097c300-a59b-4f60-9e31-df7a4ef6fd5e"
+                    ZIndex: =1
+
+                Button4 As button:
+                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    DisabledFill: =RGBA(244, 244, 244, 1)
+                    Fill: =RGBA(30, 14, 91, 1)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =20
+                    HoverColor: =RGBA(255, 255, 255, 1)
+                    HoverFill: =ColorFade(RGBA(30, 14, 91, 1), -20%)
+                    OnSelect: =Back()
+                    Size: =15
+                    Text: ="Back"
+                    ZIndex: =2
+

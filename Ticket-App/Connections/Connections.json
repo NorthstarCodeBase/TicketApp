@@ -1,0 +1,71 @@
+{
+  "7e34d9bf-21cd-401c-9ac0-a552756173cb": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1656/1.0.1656.3429/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://northstarprecision.sharepoint.com/sites/NorthstarPrecisionVietnam": {
+        "dataSources": {
+          "Corrective_Maintenance": {
+            "tableName": "bcf13ca7-f95e-46af-bf24-c4db8817d3df"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Corrective_Maintenance"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "7e34d9bf-21cd-401c-9ac0-a552756173cb"
+  },
+  "84a7eced-35c8-493f-8e2d-a1cc6eecafbb": {
+    "appActions": [
+      "SendEmailV2"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://connectoricons-prod.azureedge.net/master/1.0.1653.3400/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Outlook"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "84a7eced-35c8-493f-8e2d-a1cc6eecafbb"
+  },
+  "cf1dcd04-37c5-456d-8b9d-da3fde46a55d": {
+    "appActions": [
+      "UserProfileV2"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Users",
+      "iconUri": "https://connectoricons-prod.azureedge.net/master/1.0.1653.3400/office365users/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365users",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Users"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "cf1dcd04-37c5-456d-8b9d-da3fde46a55d"
+  }
+}
