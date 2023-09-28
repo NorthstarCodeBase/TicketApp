@@ -64,19 +64,9 @@ App As appinfo:
         );
         If(
             User().Email in colAdmin,
-            Concurrent(
-                Set(
-                    _varroleadmin,
-                    true
-                ),
-                Collect(
-                    colTabs,
-                    {
-                        Title: "My Tasks",
-                        ID: 3,
-                        Logo: Icon.Alarm
-                    }
-                )
+            Set(
+                _varroleadmin,
+                true
             )
         );
         If(
