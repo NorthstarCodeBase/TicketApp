@@ -1566,7 +1566,9 @@
                                     Set(
                                         varAssigned,
                                         Office365Users.UserProfileV2("tung.le@northstar.vn")
-                                    )
+                                    ),"PVN",
+                                    Set(varAssigned,
+                                        Office365Users.UserProfileV2("chuong.nguyen@northstar.vn"))
                                     /*
                                     Set(
                                         varAssigned,If(CountRows(Filter(Filter(Corrective_Maintenance,'Assigned to'.Email = "tung.le@northstar.vn"),Status.Value <> "DONE", Status.Value <> "REJECTED")) > CountRows(Filter(Filter(Corrective_Maintenance,'Assigned to'.Email = "chuong.nguyen@northstar.vn"),Status.Value <> "DONE", Status.Value <> "REJECTED")),Office365Users.UserProfileV2("chuong.nguyen@northstar.vn") ,
