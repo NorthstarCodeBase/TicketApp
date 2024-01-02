@@ -728,7 +728,8 @@
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: =If(Form1.Mode  = FormMode.New,true,false)
-                    Update: =DataCardValue10.Selected
+                    Update: |-
+                        ={Value:Left(DataCardValue10.Selected.Value,Find("-",DataCardValue10.Selected.Value)-2)}
                     Width: =If('Form Screen'.Width <1100, Parent.Width -30 , Parent.Width /3)
                     X: =0
                     Y: =1
@@ -763,7 +764,8 @@
                         DisplayMode: =Parent.DisplayMode
                         HoverColor: =RGBA(0, 0, 0, 1)
                         HoverFill: =RGBA(185, 173, 246, 1)
-                        Items: =Choices([@Corrective_Maintenance].Priority)
+                        IsSearchable: =false
+                        Items: =["Urgent - 1 day", "Important - 7 days", "Medium - 30 days", "Low - 90 days"]
                         OnChange: |-
                             =
                             If(
@@ -786,7 +788,7 @@
                         PressedColor: =RGBA(255, 255, 255, 1)
                         PressedFill: =RGBA(92, 74, 168, 1)
                         SearchFields: =["Value"]
-                        SearchItems: =Choices(Corrective_Maintenance.Priority,DataCardValue10.SearchText)
+                        SearchItems: =[]
                         SelectionFill: =RGBA(30, 14, 91, 1)
                         SelectMultiple: =false
                         Size: =13
