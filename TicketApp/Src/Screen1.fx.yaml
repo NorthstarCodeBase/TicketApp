@@ -7,7 +7,7 @@ Screen1 As screen:
     PowerBI1 As powerbi:
         BorderColor: =RGBA(92, 74, 168, 1)
         DashboardId: ="81b0ed0e-725e-4271-b56d-1307e365d58a"
-        Height: =768
+        Height: =Parent.Height
         TileUrl: |-
             ="https://app.powerbi.com/embed?dashboardId=81b0ed0e-725e-4271-b56d-1307e365d58a&tileId=6b781f43-834b-4ae2-9115-b8c4f19f4fbd&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLUVBU1QtQVNJQS1BLVBSSU1BUlktcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQiLCJlbWJlZEZlYXR1cmVzIjp7InVzYWdlTWV0cmljc1ZOZXh0Ijp0cnVlLCJkaXNhYmxlQW5ndWxhckpTQm9vdHN0cmFwVGlsZUVtYmVkIjp0cnVlfX0%3d"
         Visible: =varNewReport
@@ -18,11 +18,11 @@ Screen1 As screen:
     PowerBI1_1 As powerbi:
         BorderColor: =RGBA(92, 74, 168, 1)
         DashboardId: ="e4f1cbaa-ec0f-40fe-a652-6fef6371fbb3"
-        Height: =768
+        Height: =Parent.Height
         TileUrl: |-
             ="https://app.powerbi.com/embed?dashboardId=e4f1cbaa-ec0f-40fe-a652-6fef6371fbb3&tileId=baf377c1-02c2-4f86-b875-8a9255a11f44&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLUVBU1QtQVNJQS1BLVBSSU1BUlktcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQiLCJlbWJlZEZlYXR1cmVzIjp7InVzYWdlTWV0cmljc1ZOZXh0Ijp0cnVlLCJkaXNhYmxlQW5ndWxhckpTQm9vdHN0cmFwVGlsZUVtYmVkIjp0cnVlfX0%3d"
         Visible: =!varNewReport
-        Width: =1366
+        Width: =Parent.Width
         WorkspaceId: ="9097c300-a59b-4f60-9e31-df7a4ef6fd5e"
         ZIndex: =2
 
@@ -53,6 +53,6 @@ Screen1 As screen:
         OnSelect: =If(varNewReport,Set(varNewReport, false), Set(varNewReport, true))
         Size: =15
         Text: =If(varNewReport, "Old Report", "New Report")
-        X: =1165
+        X: =Parent.Width - Self.Width -5
         ZIndex: =4
 
