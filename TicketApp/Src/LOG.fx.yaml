@@ -1,0 +1,55 @@
+LOG As screen:
+    Fill: =RGBA(242, 239, 223, 1)
+    LoadingSpinnerColor: =RGBA(30, 14, 91, 1)
+
+    Label14 As label:
+        BorderColor: =RGBA(92, 74, 168, 1)
+        Color: =RGBA(0, 0, 0, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Size: =13
+        Text: =
+        X: =608
+        Y: =296
+        ZIndex: =1
+
+    Label15 As label:
+        BorderColor: =RGBA(92, 74, 168, 1)
+        Color: =RGBA(0, 0, 0, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(227, 222, 251, 1)
+        Height: =36
+        Size: =13
+        Text: |-
+            ="2023/09/27: Remove Chuong Nguyen from assigned to due to move to PVN supervise contractor"
+        VerticalAlign: =VerticalAlign.Top
+        Width: =1366
+        Y: =42
+        ZIndex: =2
+
+    Label16 As label:
+        BorderColor: =RGBA(92, 74, 168, 1)
+        Color: =RGBA(0, 0, 0, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =36
+        Size: =20
+        Text: |-
+            ="Update LOG:"
+        Width: =243
+        Y: =6
+        ZIndex: =3
+
+    Button6 As button:
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Fill: =RGBA(30, 14, 91, 1)
+        FontWeight: =FontWeight.Semibold
+        HoverColor: =RGBA(255, 255, 255, 1)
+        HoverFill: =ColorFade(RGBA(30, 14, 91, 1), -20%)
+        OnSelect: =Navigate('Home Screen')
+        Size: =15
+        Text: ="Back"
+        X: =1206
+        ZIndex: =4
+
