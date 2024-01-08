@@ -721,7 +721,7 @@
                     BorderStyle: =BorderStyle.Solid
                     DataField: ="field_12"
                     Default: |-
-                        =If(Form1.Mode = FormMode.New, {Value: "Low"},
+                        =If(Form1.Mode = FormMode.New, {Value: "Low - 90 days"},
                             ThisItem.Priority)
                     DisplayMode: =If(Form1.Mode = FormMode.View, DisplayMode.View,DisplayMode.Edit)
                     DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_12")
@@ -1557,31 +1557,29 @@
                                     "Ridgeback",
                                     Set(
                                         varAssigned,
-                                        Office365Users.UserProfileV2("Kenny.Phung@northstar.vn")
+                                        Office365Users.UserProfileV2("tung.le@northstar.vn")
                                     ),
                                     "Plant",
                                     Set(
                                         varAssigned,
-                                        Office365Users.UserProfileV2("Kenny.Phung@northstar.vn")
+                                        Office365Users.UserProfileV2("tung.le@northstar.vn")
                                     ),
                                     "Component",
                                     Set(
                                         varAssigned,
                                         Office365Users.UserProfileV2("tung.le@northstar.vn")
-                                    ),"PVN",
-                                    Set(varAssigned,
-                                        Office365Users.UserProfileV2("chuong.nguyen@northstar.vn"))
-                                    /*
-                                    Set(
-                                        varAssigned,If(CountRows(Filter(Filter(Corrective_Maintenance,'Assigned to'.Email = "tung.le@northstar.vn"),Status.Value <> "DONE", Status.Value <> "REJECTED")) > CountRows(Filter(Filter(Corrective_Maintenance,'Assigned to'.Email = "chuong.nguyen@northstar.vn"),Status.Value <> "DONE", Status.Value <> "REJECTED")),Office365Users.UserProfileV2("chuong.nguyen@northstar.vn") ,
-                                        Office365Users.UserProfileV2("tung.le@northstar.vn"))
-                                    )*/,
+                                    ),
                                     "Office",
                                     Set(
                                         varAssigned,
                                         Office365Users.UserProfileV2("nghia.nguyen@northstar.vn")
                                     ),
                                     "Warehouse",
+                                    Set(
+                                        varAssigned,
+                                        Office365Users.UserProfileV2("nghia.nguyen@northstar.vn")
+                                    ),
+                                    "RVC",
                                     Set(
                                         varAssigned,
                                         Office365Users.UserProfileV2("nghia.nguyen@northstar.vn")
