@@ -1002,7 +1002,7 @@
                             DateAdd(
                                 'Request Date_DataCard1'.Default ,
                                 Switch(
-                                    DataCardValue10.Selected.Value,
+                                    Left(DataCardValue10.Selected.Value,Find("-",DataCardValue10.Selected.Value)-2),
                                     "Low",
                                     90,
                                     "Medium",
