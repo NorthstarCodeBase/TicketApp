@@ -1378,7 +1378,7 @@
                         Sort(
                             Filter(
                                 Corrective_Maintenance,
-                                (Status.Value in filter_Status.SelectedItems.Value || filter_Status.Selected.Value = Blank()),
+                                (Status.Value = filter_Status.Selected.Value || filter_Status.Selected.Value = Blank()),
                                 (Value(filter_ticketID.Text) = TicketID || filter_ticketID.Text = Blank()),
                                 (Area.Value = filter_Area.Selected.Value || filter_Area.Selected.Value = Blank()),
                                 (Priority.Value = filter_piority.Selected.Value || filter_piority.Selected.Value = Blank()),
