@@ -9,11 +9,6 @@ App As appinfo:
                 Logo: Icon.LogJournal
             },
             {
-                Title: "Overdue Tickets",
-                ID: 4,
-                Logo: Icon.Clock
-            },
-            {
                 Title: "Information",
                 ID: 5,
                 Logo: Icon.Information

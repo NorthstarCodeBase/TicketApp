@@ -1,9 +1,13 @@
 "'Home Screen' As screen":
     Fill: =RGBA(247, 245, 236, 1)
     LoadingSpinnerColor: =RGBA(30, 14, 91, 1)
-    OnVisible: |-
-        =UpdateContext({locTab:1});
-        //Select(galTabs,2)
+    OnVisible: |
+        =UpdateContext(
+            {
+                locTab: 1,
+                _sortType: "ID"
+            }
+        );
     Width: =App.Width
 
     MainContainer As groupContainer.horizontalAutoLayoutContainer:
@@ -205,7 +209,7 @@
                 ShowScrollbar: =false
                 TemplateFill: =If(ThisItem.IsSelected,RGBA(247, 245, 236, 1),RGBA(218, 215, 201, 1))
                 TemplatePadding: =0
-                TemplateSize: =Parent.Width/CountRows(Self.AllItems)
+                TemplateSize: =Parent.Width/Max(CountRows(Self.AllItems),1)
                 ZIndex: =1
 
                 Button1 As button:
@@ -255,344 +259,6 @@
                     Width: =Parent.TemplateWidth
                     ZIndex: =3
 
-        OverdueContainer As groupContainer.horizontalAutoLayoutContainer:
-            AlignInContainer: =AlignInContainer.SetByContainer
-            LayoutAlignItems: =LayoutAlignItems.Stretch
-            LayoutDirection: =LayoutDirection.Vertical
-            LayoutMinHeight: =100
-            LayoutMinWidth: =250
-            LayoutMode: =LayoutMode.Auto
-            Visible: =varTabSelected=4
-            ZIndex: =5
-
-            Container3 As groupContainer.verticalAutoLayoutContainer:
-                FillPortions: =0
-                Height: =60
-                LayoutAlignItems: =LayoutAlignItems.Stretch
-                LayoutJustifyContent: |-
-                    =If('Home Screen'.Size = ScreenSize.Small,LayoutJustifyContent.Start,
-                    LayoutJustifyContent.Center)
-                LayoutMinHeight: =100
-                LayoutMinWidth: =100
-                LayoutMode: =LayoutMode.Auto
-                ZIndex: =1
-
-                Label7 As label:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Text: ="Overdue"
-                    Width: =90
-                    ZIndex: =1
-
-                Slider1 As slider:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Default: =7
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    FocusedBorderThickness: =0
-                    HandleFill: =RGBA(255, 255, 255, 1)
-                    Max: =30
-                    Min: =-14
-                    OnChange: =
-                    RailFill: =RGBA(128, 130, 133, 1)
-                    Reset: =If(varTabSelected = 4,true,false)
-                    ValueFill: =RGBA(92, 74, 168, 1)
-                    Width: =Switch('Home Screen'.Size,ScreenSize.Small,150,250)
-                    ZIndex: =2
-
-                Label7_1 As label:
-                    Align: =LayoutAlignItems.Center
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Text: =Slider1.Value & " days"
-                    Width: =90
-                    ZIndex: =3
-
-            "Gallery2 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
-                AlignInContainer: =AlignInContainer.SetByContainer
-                BorderColor: =RGBA(92, 74, 168, 1)
-                Items: |-
-                    =If(
-                        Slider1.Value > 0,
-                        Sort(
-                            Filter(
-                                Corrective_Maintenance,
-                                'Due Date' >= DateAdd(
-                                    Today(),
-                                    -Slider1.Value
-                                ) && 'Due Date' < Today(),
-                                Status.Value = "PENDING INTERNAL" || Status.Value = "PENDING OUTSOURCE" ||  Status.Value = "INPROGESS OUTSOURCE" || Status.Value = "INPROGESS INTERNAL"
-                            ),
-                            'Due Date',
-                            SortOrder.Ascending
-                        ),
-                        Sort(
-                            Filter(
-                                Corrective_Maintenance,
-                                'Due Date' > Today() && 'Due Date' <= DateAdd(
-                                    Today(),
-                                    -Slider1.Value
-                                ),
-                                Status.Value = "PENDING INTERNAL" || Status.Value = "PENDING OUTSOURCE" ||  Status.Value = "INPROGESS OUTSOURCE" || Status.Value = "INPROGESS INTERNAL"
-                            ),
-                            'Due Date',
-                            SortOrder.Ascending
-                        )
-                    )
-                Layout: =Layout.Vertical
-                LayoutMinHeight: =287
-                LayoutMinWidth: =400
-                OnSelect: =Set(varItem,ThisItem); ResetForm(Form1);ViewForm(Form1);Navigate('Form Screen')
-                ShowNavigation: =true
-                ShowScrollbar: =false
-                TemplatePadding: =20
-                TemplateSize: =270
-                Transition: =Transition.Pop
-                WrapCount: =Switch('Home Screen'.Size,ScreenSize.Small,1,ScreenSize.Medium,1,ScreenSize.Large,3,4)
-                ZIndex: =2
-
-                Rectangle1 As rectangle:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    DisabledFill: =RGBA(255, 255, 255, 1)
-                    DisplayMode: =DisplayMode.View
-                    Fill: =RGBA(252, 252, 249, 1)
-                    Height: =Parent.TemplateHeight
-                    HoverFill: =RGBA(255, 255, 255, 1)
-                    OnSelect: =Select(Parent)
-                    PressedFill: =RGBA(255, 255, 255, 1)
-                    Width: =316
-                    ZIndex: =1
-
-                Title1 As label:
-                    Align: =TextPosition.Left
-                    AutoHeight: =true
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Font: =Font.Lato
-                    Height: =28
-                    OnSelect: =Select(Parent)
-                    PaddingBottom: =0
-                    PaddingLeft: =0
-                    PaddingRight: =0
-                    PaddingTop: =0
-                    Size: =15
-                    Text: =ThisItem.'Compliance Asset Id'
-                    VerticalAlign: =VerticalAlign.Top
-                    Width: =Parent.TemplateWidth-10
-                    X: =10
-                    Y: =11
-                    ZIndex: =3
-
-                Title1_2 As label:
-                    Align: =TextPosition.Left
-                    AutoHeight: =true
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    FontWeight: =ThisItem.Priority.Value
-                    Height: =30
-                    OnSelect: =Select(Parent)
-                    PaddingBottom: =0
-                    PaddingLeft: =0
-                    PaddingRight: =0
-                    PaddingTop: =0
-                    Size: =18
-                    Text: =
-                    VerticalAlign: =VerticalAlign.Top
-                    Width: =Parent.TemplateWidth-Self.X
-                    X: =53
-                    Y: =Button2_1.Height+Button2_1.Y+15
-                    ZIndex: =9
-
-                Button2 As button:
-                    BorderColor: =Switch(ThisItem.Priority.Value,"Critical",Color.DarkRed,"High",Color.OrangeRed,"Normal",Color.DarkBlue,Color.Gray)
-                    Color: =RGBA(252, 252, 249, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    DisabledFill: =RGBA(244, 244, 244, 1)
-                    Fill: =Switch(ThisItem.Priority.Value,"Critical",Color.DarkRed,"High",Color.OrangeRed,"Normal",Color.DarkBlue,Color.Gray)
-                    FontWeight: =FontWeight.Semibold
-                    Height: =27
-                    HoverColor: =RGBA(255, 255, 255, 1)
-                    HoverFill: =ColorFade(RGBA(30, 14, 91, 1), -20%)
-                    OnSelect: =Select(Parent)
-                    RadiusBottomLeft: =80
-                    RadiusBottomRight: =80
-                    RadiusTopLeft: =80
-                    RadiusTopRight: =80
-                    Size: =15
-                    Text: =ThisItem.Priority.Value
-                    Width: =116
-                    X: =200
-                    Y: =173
-                    ZIndex: =10
-
-                Button2_1 As button:
-                    BorderColor: =Switch(ThisItem.Status.Value,"Closed",Color.DarkGreen,"In Progress",Color.DarkGoldenRod, "Blocked", Color.DarkRed,"New", Color.DarkBlue)
-                    Color: =RGBA(252, 252, 249, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    DisabledFill: =RGBA(244, 244, 244, 1)
-                    Fill: =Switch(ThisItem.Status.Value,"Closed",Color.DarkGreen,"In Progress",Color.DarkGoldenRod, "Blocked", Color.DarkRed,"New", Color.DarkBlue)
-                    FontWeight: =FontWeight.Semibold
-                    Height: =29
-                    HoverColor: =RGBA(255, 255, 255, 1)
-                    HoverFill: =ColorFade(RGBA(30, 14, 91, 1), -20%)
-                    OnSelect: =Select(Parent)
-                    RadiusBottomLeft: =80
-                    RadiusBottomRight: =80
-                    RadiusTopLeft: =80
-                    RadiusTopRight: =80
-                    Size: =15
-                    Text: =ThisItem.Status.Value
-                    Width: =261
-                    Y: =241
-                    ZIndex: =12
-
-                Icon5 As icon.Post:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(92, 74, 168, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(244, 244, 244, 1)
-                    Height: =20
-                    Icon: =Icon.CalendarBlank
-                    OnSelect: =Select(Parent)
-                    Width: =33
-                    Y: =200
-                    ZIndex: =13
-
-                Icon6 As icon.CancelBadge:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(92, 74, 168, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(244, 244, 244, 1)
-                    Height: =30
-                    Icon: =Icon.Tag
-                    OnSelect: =Select(Parent)
-                    Width: =28
-                    X: =10
-                    Y: =1
-                    ZIndex: =15
-
-                Label2_1 As label:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    OnSelect: =Select(Parent)
-                    Size: =13
-                    Text: =ThisItem.TicketID
-                    Width: =51
-                    X: =Icon6.X+Icon6.Width
-                    Y: =1
-                    ZIndex: =16
-
-                ContentGallery_Photo_1 As image:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledFill: =RGBA(244, 244, 244, 1)
-                    Height: =154
-                    Image: =
-                    OnSelect: =Select(Parent)
-                    Width: =148
-                    X: =12
-                    Y: =43
-                    ZIndex: =18
-
-                "'ContentGallery.Descript_1' As label":
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Height: =126
-                    OnSelect: =Select(Parent)
-                    Size: =13
-                    Text: |-
-                        ="Mô tả lỗi: "&ThisItem.'Issue Description'
-                    VerticalAlign: =VerticalAlign.Top
-                    Width: =261
-                    Y: =41
-                    ZIndex: =19
-
-                "'ContentGallery.Date_1' As label":
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Height: =25
-                    OnSelect: =Select(Parent)
-                    Size: =13
-                    Text: =ThisItem.'Request Date'
-                    VerticalAlign: =VerticalAlign.Top
-                    Width: =229
-                    X: =33
-                    Y: =195
-                    ZIndex: =20
-
-                ContentGallery_Requester_1 As label:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Height: =23
-                    OnSelect: =Select(Parent)
-                    Size: =13
-                    Text: =ThisItem.Requester.DisplayName
-                    VerticalAlign: =VerticalAlign.Top
-                    Width: =144
-                    X: =33
-                    Y: =169
-                    ZIndex: =21
-
-                ContentGallery_Area_1 As label:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Height: =26
-                    OnSelect: =Select(Parent)
-                    Size: =13
-                    Text: =ThisItem.Area.Value  & " - " & ThisItem.Location
-                    VerticalAlign: =VerticalAlign.Top
-                    Width: =283
-                    X: =33
-                    Y: =217
-                    ZIndex: =22
-
-                Icon2_1 As icon.Map:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(92, 74, 168, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(244, 244, 244, 1)
-                    Height: =21
-                    Icon: =Icon.Location
-                    OnSelect: =Select(Parent)
-                    Width: =34
-                    Y: =220
-                    ZIndex: =24
-
-                ContentGallery_RequesterIcon_1 As icon.AddUser:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(92, 74, 168, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(244, 244, 244, 1)
-                    Height: =25
-                    Icon: =Icon.AddUser
-                    OnSelect: =Select(Parent)
-                    Width: =33
-                    Y: =167
-                    ZIndex: =25
-
-                "'ContentGallery.Date_2' As label":
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Height: =25
-                    OnSelect: =Select(Parent)
-                    Size: =13
-                    Text: |-
-                        ="Due Date: "& ThisItem.'Due Date'
-                    VerticalAlign: =VerticalAlign.Top
-                    Width: =229
-                    X: =87
-                    Y: =8
-                    ZIndex: =26
-
         TicketsContainer As groupContainer.horizontalAutoLayoutContainer:
             AlignInContainer: =AlignInContainer.SetByContainer
             LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -609,66 +275,84 @@
                 LayoutMinHeight: =100
                 LayoutMinWidth: =100
                 LayoutMode: =LayoutMode.Auto
+                PaddingBottom: =10
+                PaddingLeft: =5
+                PaddingRight: =5
+                PaddingTop: =10
                 Visible: =If('Home Screen'.Width >1100, true,If(varsmallScreen = true, true, false))
                 Width: =Switch('Home Screen'.Size ,ScreenSize.Small,If(varsmallScreen = true, 300,100),ScreenSize.Medium,200,200)
                 ZIndex: =1
 
-                Label1_8 As label:
-                    BorderColor: =RGBA(0,0,0,1)
-                    Color: =RGBA(0,0,0,1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Fill: =RGBA(255,255,255,0)
-                    Height: =If('Home Screen'.Width < 1100,10,20)
-                    Size: =13
-                    Text: =
+                Container10 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.Light
+                    LayoutGap: =10
+                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =100
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =10
+                    RadiusBottomLeft: =4
+                    RadiusBottomRight: =4
+                    RadiusTopLeft: =4
+                    RadiusTopRight: =4
                     Width: =Parent.Width
-                    Y: =64
-                    ZIndex: =2
+                    ZIndex: =1
 
-                Button4_1 As button:
-                    BorderColor: =RGBA(255,255,255,1)
-                    Color: =RGBA(0,0,0,1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    DisabledFill: =RGBA(244, 244, 244, 1)
-                    Fill: =RGBA(255,165,100,0.6)
-                    FontWeight: =FontWeight.Semibold
-                    Height: =If('Home Screen'.Width <1100, 30,50)
-                    HoverFill: =Self.Fill
-                    OnSelect: |-
-                        =Set(resetfilter,true);
-                        Set(resetfilter,false)
-                    PressedColor: =Self.Color
-                    PressedFill: =Self.Fill
-                    Size: =15
-                    Text: ="Clear filter"
-                    Width: =Parent.Width
-                    Y: =6
-                    ZIndex: =3
+                    Button4_1 As button:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(255,255,255,1)
+                        Color: =RGBA(0,0,0,1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisabledColor: =RGBA(166, 166, 166, 1)
+                        DisabledFill: =RGBA(244, 244, 244, 1)
+                        Fill: =RGBA(255,165,100,0.6)
+                        FillPortions: =1
+                        Font: =Font.Lato
+                        FontWeight: =FontWeight.Semibold
+                        Height: =If('Home Screen'.Width <1100, 30,50)
+                        HoverFill: =Self.Fill
+                        LayoutMinHeight: =10
+                        LayoutMinWidth: =100
+                        OnSelect: |-
+                            =Set(resetfilter,true);
+                            Set(resetfilter,false)
+                        PressedColor: =Self.Color
+                        PressedFill: =Self.Fill
+                        Size: =15
+                        Text: ="Clear filter"
+                        Width: =100
+                        Y: =6
+                        ZIndex: =1
 
-                Label1_7 As label:
-                    BorderColor: =RGBA(0,0,0,1)
-                    Color: =RGBA(0,0,0,1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Fill: =RGBA(255,255,255,0)
-                    Height: =If('Home Screen'.Width < 1100,10,20)
-                    Size: =13
-                    Text: =
-                    Width: =Parent.Width
-                    Y: =64
-                    ZIndex: =4
+                    Icon1 As icon.DockRight:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(92, 74, 168, 1)
+                        Color: =RGBA(15, 84, 140, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisabledColor: =RGBA(244, 244, 244, 1)
+                        FillPortions: =1
+                        Icon: =Icon.DockRight
+                        OnSelect: |-
+                            =If(
+                                _OpenSort,
+                                UpdateContext({_OpenSort: false}),
+                                UpdateContext({_OpenSort: true})
+                            )
+                        ZIndex: =2
 
                 Label1 As label:
                     BorderColor: =RGBA(0,0,0,1)
                     Color: =RGBA(0,0,0,1)
                     DisabledColor: =RGBA(166, 166, 166, 1)
                     Fill: =RGBA(255,255,255,0)
+                    FillPortions: =1
                     Height: =22
+                    LayoutMinHeight: =10
                     Size: =13
                     Text: ="Ticket ID"
-                    Width: =Parent.Width
+                    Width: =Parent.Width - 10
                     Y: =64
-                    ZIndex: =5
+                    ZIndex: =3
 
                 filter_ticketID As text:
                     BorderColor: =RGBA(0,0,0,1)
@@ -679,6 +363,7 @@
                     DisabledColor: =RGBA(166, 166, 166, 1)
                     DisabledFill: =RGBA(244, 244, 244, 1)
                     Fill: =RGBA(255,255,255,1)
+                    FillPortions: =1
                     FocusedBorderThickness: =4
                     Format: =TextFormat.Number
                     Height: =If('Home Screen'.Width <1100, 30,40)
@@ -686,24 +371,28 @@
                     HoverBorderColor: =RGBA(92, 74, 168, 1)
                     HoverColor: =RGBA(0, 0, 0, 1)
                     HoverFill: =RGBA(185, 173, 246, 1)
+                    LayoutMinHeight: =10
                     MaxLength: =4
+                    PaddingLeft: =5
                     Reset: =resetfilter
                     Size: =13
-                    Width: =Parent.Width-10
+                    Width: =Parent.Width - 10
                     Y: =96
-                    ZIndex: =6
+                    ZIndex: =4
 
                 Label1_1 As label:
                     BorderColor: =RGBA(0,0,0,1)
                     Color: =RGBA(0,0,0,1)
                     DisabledColor: =RGBA(166, 166, 166, 1)
                     Fill: =RGBA(255,255,255,0)
+                    FillPortions: =1
                     Height: =25
+                    LayoutMinHeight: =10
                     Size: =13
                     Text: ="Status"
-                    Width: =Parent.Width
+                    Width: =Parent.Width - 10
                     Y: =146
-                    ZIndex: =7
+                    ZIndex: =5
 
                 filter_Status As combobox:
                     BorderColor: =RGBA(0,0,0,1)
@@ -719,11 +408,13 @@
                     DisabledFill: =RGBA(244, 244, 244, 1)
                     DisplayFields: =["Value"]
                     Fill: =RGBA(255,255,255,1)
+                    FillPortions: =1
                     Height: =If('Home Screen'.Width <1100, 30,40)
                     HoverColor: =RGBA(0, 0, 0, 1)
                     HoverFill: =RGBA(185, 173, 246, 1)
                     IsSearchable: =false
                     Items: =Choices(Corrective_Maintenance.Status)
+                    LayoutMinHeight: =10
                     PressedColor: =RGBA(255, 255, 255, 1)
                     PressedFill: =RGBA(92, 74, 168, 1)
                     Reset: =resetfilter
@@ -731,21 +422,23 @@
                     SearchItems: =[]
                     SelectionFill: =RGBA(30, 14, 91, 1)
                     Size: =13
-                    Width: =Parent.Width-10
+                    Width: =Parent.Width - 10
                     Y: =181
-                    ZIndex: =8
+                    ZIndex: =6
 
                 Label1_2 As label:
                     BorderColor: =RGBA(0,0,0,1)
                     Color: =RGBA(0,0,0,1)
                     DisabledColor: =RGBA(166, 166, 166, 1)
                     Fill: =RGBA(255,255,255,0)
+                    FillPortions: =1
                     Height: =21
+                    LayoutMinHeight: =10
                     Size: =13
                     Text: ="Area"
-                    Width: =Parent.Width
+                    Width: =Parent.Width - 10
                     Y: =299
-                    ZIndex: =9
+                    ZIndex: =7
 
                 filter_Area As combobox:
                     BorderColor: =RGBA(0,0,0,1)
@@ -760,11 +453,13 @@
                     DisabledFill: =RGBA(244, 244, 244, 1)
                     DisplayFields: =["Value"]
                     Fill: =RGBA(255,255,255,1)
+                    FillPortions: =1
                     Height: =If('Home Screen'.Width <1100, 30,40)
                     HoverColor: =RGBA(0, 0, 0, 1)
                     HoverFill: =RGBA(185, 173, 246, 1)
                     IsSearchable: =false
                     Items: =Choices(Corrective_Maintenance.Area)
+                    LayoutMinHeight: =10
                     PressedColor: =RGBA(255, 255, 255, 1)
                     PressedFill: =RGBA(92, 74, 168, 1)
                     Reset: |
@@ -774,21 +469,23 @@
                     SelectionFill: =RGBA(30, 14, 91, 1)
                     SelectMultiple: =false
                     Size: =12
-                    Width: =Parent.Width-10
+                    Width: =Parent.Width - 10
                     Y: =330
-                    ZIndex: =10
+                    ZIndex: =8
 
                 Label1_3 As label:
                     BorderColor: =RGBA(0,0,0,1)
                     Color: =RGBA(0,0,0,1)
                     DisabledColor: =RGBA(166, 166, 166, 1)
                     Fill: =RGBA(255,255,255,0)
+                    FillPortions: =1
                     Height: =22
+                    LayoutMinHeight: =10
                     Size: =13
                     Text: ="Priority"
-                    Width: =Parent.Width
+                    Width: =Parent.Width - 10
                     Y: =372
-                    ZIndex: =11
+                    ZIndex: =9
 
                 filter_piority As combobox:
                     BorderColor: =RGBA(0,0,0,1)
@@ -803,11 +500,13 @@
                     DisabledFill: =RGBA(244, 244, 244, 1)
                     DisplayFields: =["Value"]
                     Fill: =RGBA(255,255,255,1)
+                    FillPortions: =1
                     Height: =If('Home Screen'.Width <1100, 30,40)
                     HoverColor: =RGBA(0, 0, 0, 1)
                     HoverFill: =RGBA(185, 173, 246, 1)
                     IsSearchable: =false
                     Items: =Choices(Corrective_Maintenance.Priority)
+                    LayoutMinHeight: =10
                     PressedColor: =RGBA(255, 255, 255, 1)
                     PressedFill: =RGBA(92, 74, 168, 1)
                     Reset: |
@@ -817,21 +516,23 @@
                     SelectionFill: =RGBA(30, 14, 91, 1)
                     SelectMultiple: =false
                     Size: =12
-                    Width: =Parent.Width-10
+                    Width: =Parent.Width - 10
                     Y: =404
-                    ZIndex: =12
+                    ZIndex: =10
 
                 Label1_6 As label:
                     BorderColor: =RGBA(0,0,0,1)
                     Color: =RGBA(0,0,0,1)
                     DisabledColor: =RGBA(166, 166, 166, 1)
                     Fill: =RGBA(255,255,255,0)
+                    FillPortions: =1
                     Height: =21
+                    LayoutMinHeight: =10
                     Size: =13
                     Text: ="Category"
-                    Width: =Parent.Width
+                    Width: =Parent.Width - 10
                     Y: =223
-                    ZIndex: =13
+                    ZIndex: =11
 
                 filter_category As combobox:
                     BorderColor: =RGBA(0,0,0,1)
@@ -846,11 +547,13 @@
                     DisabledFill: =RGBA(244, 244, 244, 1)
                     DisplayFields: =["Value"]
                     Fill: =RGBA(255,255,255,1)
+                    FillPortions: =1
                     Height: =If('Home Screen'.Width <1100, 30,40)
                     HoverColor: =RGBA(0, 0, 0, 1)
                     HoverFill: =RGBA(185, 173, 246, 1)
                     IsSearchable: =false
                     Items: =Choices(Corrective_Maintenance.'Issue Category')
+                    LayoutMinHeight: =10
                     PressedColor: =RGBA(255, 255, 255, 1)
                     PressedFill: =RGBA(92, 74, 168, 1)
                     Reset: |
@@ -860,22 +563,24 @@
                     SelectionFill: =RGBA(30, 14, 91, 1)
                     SelectMultiple: =false
                     Size: =13
-                    Width: =Parent.Width-10
+                    Width: =Parent.Width - 10
                     Y: =254
-                    ZIndex: =14
+                    ZIndex: =12
 
                 Label1_4 As label:
                     BorderColor: =RGBA(0,0,0,1)
                     Color: =RGBA(0,0,0,1)
                     DisabledColor: =RGBA(166, 166, 166, 1)
                     Fill: =RGBA(255,255,255,0)
+                    FillPortions: =1
                     Height: =22
+                    LayoutMinHeight: =10
                     Size: =13
                     Text: |-
                         ="Date from:"
-                    Width: =Parent.Width
+                    Width: =Parent.Width - 10
                     Y: =441
-                    ZIndex: =15
+                    ZIndex: =13
 
                 filter_dateform As datepicker:
                     BorderColor: =RGBA(0,0,0,1)
@@ -886,29 +591,35 @@
                     DisabledColor: =RGBA(166, 166, 166, 1)
                     DisabledFill: =RGBA(244, 244, 244, 1)
                     Fill: =RGBA(255,255,255,1)
+                    FillPortions: =1
                     Height: =If('Home Screen'.Width <1100, 30,40)
                     HoverDateFill: =RGBA(185, 173, 246, 1)
                     IconBackground: =RGBA(30, 14, 91, 1)
+                    LayoutMinHeight: =10
+                    PaddingLeft: =5
+                    PaddingTop: =5
                     Reset: |
                         =resetfilter
                     SelectedDateFill: =RGBA(30, 14, 91, 1)
                     StartOfWeek: =StartOfWeek.Monday
-                    Width: =Parent.Width-10
+                    Width: =Parent.Width - 10
                     Y: =473
-                    ZIndex: =16
+                    ZIndex: =14
 
                 Label1_5 As label:
                     BorderColor: =RGBA(0,0,0,1)
                     Color: =RGBA(0,0,0,1)
                     DisabledColor: =RGBA(166, 166, 166, 1)
                     Fill: =RGBA(255,255,255,0)
+                    FillPortions: =1
                     Height: =26
+                    LayoutMinHeight: =10
                     Size: =13
                     Text: |-
                         ="Date to:"
-                    Width: =Parent.Width
+                    Width: =Parent.Width - 10
                     Y: =513
-                    ZIndex: =17
+                    ZIndex: =15
 
                 filter_dateto As datepicker:
                     BorderColor: =RGBA(0,0,0,1)
@@ -919,32 +630,38 @@
                     DisabledColor: =RGBA(166, 166, 166, 1)
                     DisabledFill: =RGBA(244, 244, 244, 1)
                     Fill: =RGBA(255,255,255,1)
+                    FillPortions: =1
                     Height: =If('Home Screen'.Width <1100, 30,40)
                     HoverDateFill: =RGBA(185, 173, 246, 1)
                     IconBackground: =RGBA(30, 14, 91, 1)
+                    LayoutMinHeight: =10
+                    PaddingLeft: =5
+                    PaddingTop: =5
                     Reset: |
                         =resetfilter
                     SelectedDateFill: =RGBA(30, 14, 91, 1)
                     StartOfWeek: =StartOfWeek.Monday
-                    Width: =Parent.Width-10
+                    Width: =Parent.Width - 10
                     Y: =553
-                    ZIndex: =18
+                    ZIndex: =16
 
                 Label1_18 As label:
                     BorderColor: =RGBA(0,0,0,1)
                     Color: =RGBA(0,0,0,1)
                     DisabledColor: =RGBA(166, 166, 166, 1)
                     Fill: =RGBA(255,255,255,0)
+                    FillPortions: =1
                     Height: =26
+                    LayoutMinHeight: =10
                     Size: =13
                     Text: |-
                         ="Assign to:"
                     Visible: |-
-                        =//If(_varroleadmin = true,true,false)
+                        =
                         true
-                    Width: =Parent.Width
+                    Width: =Parent.Width - 10
                     Y: =513
-                    ZIndex: =19
+                    ZIndex: =17
 
                 filter_assigned As combobox:
                     BorderColor: =RGBA(0,0,0,1)
@@ -963,6 +680,7 @@
                     DisabledFill: =RGBA(244, 244, 244, 1)
                     DisplayFields: =["Value","Email","Picture"]
                     Fill: =RGBA(255,255,255,1)
+                    FillPortions: =1
                     Height: =If('Home Screen'.Width <1100, 30,40)
                     HoverColor: =RGBA(0, 0, 0, 1)
                     HoverFill: =RGBA(185, 173, 246, 1)
@@ -971,6 +689,7 @@
                     Items: |
                         =//["Tung Le","ALL","Nghia Nguyen","Thanh Le","Tung Pham","Tony Nguyen"]
                         Distinct(Corrective_Maintenance,'Assigned to'.DisplayName)
+                    LayoutMinHeight: =10
                     PressedColor: =RGBA(255, 255, 255, 1)
                     PressedFill: =RGBA(92, 74, 168, 1)
                     Reset: |
@@ -981,23 +700,25 @@
                     SelectMultiple: =false
                     Size: =12
                     Visible: =If(_varroleadmin = true,true,false)
-                    Width: =Parent.Width-10
+                    Width: =Parent.Width - 10
                     Y: =404
-                    ZIndex: =20
+                    ZIndex: =18
 
                 Label1_19 As label:
                     BorderColor: =RGBA(0,0,0,1)
                     Color: =RGBA(0,0,0,1)
                     DisabledColor: =RGBA(166, 166, 166, 1)
                     Fill: =RGBA(255,255,255,0)
+                    FillPortions: =1
                     Height: =26
+                    LayoutMinHeight: =10
                     Size: =13
                     Text: |-
                         ="Request from:"
                     Visible: =If(_varroleadmin = true,true,false)
-                    Width: =Parent.Width
+                    Width: =Parent.Width - 10
                     Y: =109
-                    ZIndex: =21
+                    ZIndex: =19
 
                 filter_RqFrom As combobox:
                     BorderColor: =RGBA(0,0,0,1)
@@ -1012,10 +733,12 @@
                     DisabledFill: =RGBA(244, 244, 244, 1)
                     DisplayFields: =["DisplayName"]
                     Fill: =RGBA(255,255,255,1)
+                    FillPortions: =1
                     Height: =If('Home Screen'.Width <1100, 30,40)
                     HoverColor: =RGBA(0, 0, 0, 1)
                     HoverFill: =RGBA(185, 173, 246, 1)
                     Items: =Choices(Corrective_Maintenance.Requester)
+                    LayoutMinHeight: =10
                     PressedColor: =RGBA(255, 255, 255, 1)
                     PressedFill: =RGBA(92, 74, 168, 1)
                     Reset: |
@@ -1025,759 +748,511 @@
                     SelectionFill: =RGBA(30, 14, 91, 1)
                     SelectMultiple: =false
                     Size: =12
-                    Width: =Parent.Width-10
+                    Width: =Parent.Width - 10
                     Y: =330
-                    ZIndex: =22
-
-            "ContentGallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
-                AlignInContainer: =AlignInContainer.SetByContainer
-                BorderColor: =RGBA(92, 74, 168, 1)
-                Fill: =RGBA(247, 245, 236, 1)
-                FillPortions: =0
-                FocusedBorderThickness: =0
-                Items: |-
-                    =Switch(
-                        varTabSelected,
-                        1,
-                        Sort(
-                            Filter(
-                                Corrective_Maintenance,
-                                (Status.Value = filter_Status.Selected.Value || filter_Status.Selected.Value = Blank()),
-                                (Value(filter_ticketID.Text) = TicketID || filter_ticketID.Text = Blank()),
-                                (Area.Value = filter_Area.Selected.Value || filter_Area.Selected.Value = Blank()),
-                                (Priority.Value = filter_piority.Selected.Value || filter_piority.Selected.Value = Blank()),
-                                ('Request Date' >= filter_dateform.SelectedDate && 'Request Date' <= filter_dateto.SelectedDate),
-                                ('Issue Category'.Value = filter_category.Selected.Value || filter_category.Selected.Value = Blank())
-                            ),
-                            ID,
-                            SortOrder.Descending
-                        ),
-                        2,
-                        Sort(
-                            Filter(
-                                Corrective_Maintenance,
-                                (Status.Value = filter_Status.Selected.Value || filter_Status.Selected.Value = Blank()),
-                                (Value(filter_ticketID.Text) = TicketID || filter_ticketID.Text = Blank()),
-                                (Area.Value = filter_Area.Selected.Value || filter_Area.Selected.Value = Blank()),
-                                (Priority.Value = filter_piority.Selected.Value || filter_piority.Selected.Value = Blank()),
-                                ('Request Date' >= filter_dateform.SelectedDate && 'Request Date' <= filter_dateto.SelectedDate),
-                                ('Issue Category'.Value = filter_category.Selected.Value || filter_category.Selected.Value = Blank()),
-                                Requester.Email = User().Email
-                            ),
-                            ID,
-                            SortOrder.Descending
-                        ),
-                        3,
-                        Sort(
-                            Filter(
-                                Corrective_Maintenance,
-                                (Status.Value = filter_Status.Selected.Value || filter_Status.Selected.Value = Blank()),
-                                (Value(filter_ticketID.Text) = TicketID || filter_ticketID.Text = Blank()),
-                                (Area.Value = filter_Area.Selected.Value || filter_Area.Selected.Value = Blank()),
-                                (Priority.Value = filter_piority.Selected.Value || filter_piority.Selected.Value = Blank()),
-                                ('Request Date' >= filter_dateform.SelectedDate && 'Request Date' <= filter_dateto.SelectedDate),
-                                ('Issue Category'.Value = filter_category.Selected.Value || filter_category.Selected.Value = Blank()),
-                                'Assigned to'.Email = User().Email
-                            ),
-                            ID,
-                            SortOrder.Descending
-                        )
-                    )
-                    /*
-                    If(
-                        varTabSelected = 1,
-                        Filter(
-                            'Corrective_Maintenance',
-                            Gallery3_2.Selected.Value = "All" || Status.Value = Gallery3_2.Selected.Value
-                        ),
-                        Filter(
-                            'Corrective_Maintenance',
-                            (Gallery3_2.Selected.Value = "All" || Status.Value = Gallery3_2.Selected.Value) && 'Created By'.Email = User().Email
-                        )
-                    )
-                    */
-                Layout: =Layout.Vertical
-                LayoutMinHeight: =287
-                LayoutMinWidth: =100
-                LoadingSpinner: =LoadingSpinner.Controls
-                OnSelect: =Set(varItem,ThisItem); ResetForm(Form1);ViewForm(Form1);Navigate('Form Screen')
-                ShowScrollbar: =false
-                TemplatePadding: =20
-                TemplateSize: |
-                    =250
-                Transition: =Transition.Pop
-                Visible: =//If(varTabSelected =2||varTabSelected =3,true,false)
-                Width: |-
-                    =//Switch('Home Screen'.Size,ScreenSize.Small,600,1170)
-                    //Switch('Home Screen'.Size,ScreenSize.Small,1,ScreenSize.Medium,1,ScreenSize.Large,2,3)
-                    Parent.Width
-                WrapCount: =Switch('Home Screen'.Size,ScreenSize.Small,1,ScreenSize.Medium,2,ScreenSize.Large,3,4)
-                ZIndex: =2
-
-                Rectangle1_1 As rectangle:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    DisabledFill: =RGBA(255, 255, 255, 1)
-                    DisplayMode: =DisplayMode.View
-                    Fill: =RGBA(252, 252, 249, 1)
-                    Height: =250
-                    HoverFill: =RGBA(255, 255, 255, 1)
-                    OnSelect: =Select(Parent)
-                    PressedFill: =RGBA(255, 255, 255, 1)
-                    Width: =Parent.Width /5
-                    ZIndex: =1
-
-                ContentGallery_TicketID As label:
-                    Align: =Align.Center
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Font: =Font.Lato
-                    FontWeight: =FontWeight.Bold
-                    Height: =27
-                    OnSelect: =Select(Parent)
-                    PaddingBottom: =0
-                    PaddingLeft: =0
-                    PaddingRight: =0
-                    PaddingTop: =0
-                    Size: =15
-                    Text: =ThisItem.TicketID
-                    VerticalAlign: =VerticalAlign.Top
-                    Width: =34
-                    ZIndex: =3
-
-                ContentGallery_Prioritty As button:
-                    BorderColor: =Switch(ThisItem.Priority.Value,"Critical",Color.DarkRed,"High",Color.OrangeRed,"Normal",Color.DarkBlue,Color.Gray)
-                    Color: =RGBA(252, 252, 249, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    DisabledFill: =RGBA(244, 244, 244, 1)
-                    Fill: |-
-                        =If(Not(ThisItem.Status.Value = "DONE"),
-                        Switch(ThisItem.Priority.Value,"Urgent",Color.DarkRed,"Important",Color.OrangeRed,"Medium",Color.DarkBlue,Color.Gray),Color.Gray)
-                    FontWeight: =FontWeight.Semibold
-                    Height: =34
-                    HoverColor: =RGBA(255, 255, 255, 1)
-                    HoverFill: =ColorFade(RGBA(30, 14, 91, 1), -20%)
-                    OnSelect: =Select(Parent)
-                    RadiusBottomLeft: =80
-                    RadiusBottomRight: =80
-                    RadiusTopLeft: =80
-                    RadiusTopRight: =80
-                    Size: =15
-                    Text: =ThisItem.Priority.Value
-                    Width: =110
-                    X: =125
-                    Y: =216
-                    ZIndex: =10
-
-                ContentGallery_Status As button:
-                    BorderColor: =Switch(ThisItem.Status.Value,"Closed",Color.DarkGreen,"In Progress",Color.DarkGoldenRod, "Blocked", Color.DarkRed,"New", Color.DarkBlue)
-                    Color: |
-                        =Switch(ThisItem.Status.Value,"Pending",Color.Black,RGBA(252, 252, 249, 1))
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    DisabledFill: =RGBA(244, 244, 244, 1)
-                    Fill: =Switch(ThisItem.Status.Value,"Pending",Color.LightGoldenRodYellow,"DONE",Color.ForestGreen, "REJECTED", Color.DarkRed,"New", Color.DarkBlue)
-                    FontWeight: =FontWeight.Semibold
-                    Height: =32
-                    HoverColor: =RGBA(255, 255, 255, 1)
-                    HoverFill: =ColorFade(RGBA(30, 14, 91, 1), -20%)
-                    OnSelect: =Select(Parent)
-                    RadiusBottomLeft: =80
-                    RadiusBottomRight: =80
-                    RadiusTopLeft: =80
-                    RadiusTopRight: =80
-                    Size: =15
-                    Text: =ThisItem.Status.Value
-                    Width: =109
-                    Y: =218
-                    ZIndex: =12
-
-                ContentGallery_Calendaricon As icon.Post:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(92, 74, 168, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(244, 244, 244, 1)
-                    Height: =20
-                    Icon: =Icon.CalendarBlank
-                    OnSelect: =Select(Parent)
-                    Width: =33
-                    Y: =162
-                    ZIndex: =13
-
-                ContentGallery_TagIcon As icon.Post:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(92, 74, 168, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(244, 244, 244, 1)
-                    Height: =20
-                    Icon: =Icon.Tag
-                    OnSelect: =Select(Parent)
-                    Width: =33
-                    X: =32
-                    Y: =3
-                    ZIndex: =17
-
-                "'ContentGallery.Descript' As label":
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Height: |-
-                        =//125
-                        If(ScreenSize.Small,100,125)
-                    OnSelect: =Select(Parent)
-                    Size: =13
-                    Text: |-
-                        ="Mô tả lỗi: "&ThisItem.'Issue Description'
-                    VerticalAlign: =VerticalAlign.Top
-                    Width: =232
-                    X: =If('Home Screen'.Size =  ScreenSize.Small,0,130)
-                    Y: =27
-                    ZIndex: =19
-
-                "'ContentGallery.Date' As label":
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Height: =28
-                    OnSelect: =Select(Parent)
-                    Size: =13
-                    Text: =ThisItem.'Request Date'
-                    VerticalAlign: =VerticalAlign.Top
-                    Width: =181
-                    X: =33
-                    Y: =154
                     ZIndex: =20
 
-                ContentGallery_Area As label:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(0, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    Height: =29
-                    OnSelect: =Select(Parent)
-                    Size: =13
-                    Text: =ThisItem.Area.Value  & " - " & ThisItem.Location
-                    VerticalAlign: =VerticalAlign.Top
-                    Width: |-
-                        =If(
-                            'Home Screen'.Size =ScreenSize.Small,
-                            200,
-                            330
-                        ) 
-                    X: =32
-                    Y: =182
-                    ZIndex: =24
+            Container3 As groupContainer.verticalAutoLayoutContainer:
+                DropShadow: =DropShadow.Light
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                RadiusBottomLeft: =4
+                RadiusBottomRight: =4
+                RadiusTopLeft: =4
+                RadiusTopRight: =4
+                ZIndex: =4
 
-                Icon2 As icon.Map:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Color: =RGBA(92, 74, 168, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(244, 244, 244, 1)
-                    Height: =21
-                    Icon: =Icon.Location
-                    OnSelect: =Select(Parent)
-                    Width: =34
-                    Y: =190
-                    ZIndex: =25
-
-                Label3 As label:
-                    Align: =Align.Center
-                    BorderThickness: =2
-                    Color: =RGBA(255, 0, 0, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    FontWeight: =FontWeight.Bold
-                    Height: =127
-                    OnSelect: =Select(Parent)
-                    Size: =13
-                    Text: ="NO IMAGE"
-                    Visible: |-
-                        =If('Home Screen'.Size =ScreenSize.Small,false,
-                        If(ThisItem.'Has attachments',false,true))
-                    Width: =125
-                    Y: =27
-                    ZIndex: =26
-
-                Group1 As group:
-                    Height: =5
-                    Width: =5
-                    X: =40
-                    Y: =40
-                    ZIndex: =27
-
-                    ContentGallery_Requester As label:
-                        Align: =Align.Right
-                        BorderColor: =RGBA(92, 74, 168, 1)
-                        Color: =RGBA(0, 0, 0, 1)
-                        DisabledColor: =RGBA(166, 166, 166, 1)
-                        Height: =32
-                        OnSelect: =Select(Parent)
-                        Size: =13
-                        Text: =ThisItem.Requester.DisplayName
-                        VerticalAlign: =VerticalAlign.Top
-                        Width: =127
-                        X: |-
-                            =If(
-                                'Home Screen'.Size =ScreenSize.Small,
-                                0,
-                                200
-                            ) 
-                        Y: |-
-                            =If(
-                                'Home Screen'.Size =ScreenSize.Small,
-                                126,
-                                155
-                            ) 
-                        ZIndex: =21
-
-                    ContentGallery_RequesterIcon As icon.AddUser:
-                        BorderColor: =RGBA(92, 74, 168, 1)
-                        Color: =RGBA(92, 74, 168, 1)
-                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                        DisabledColor: =RGBA(244, 244, 244, 1)
-                        Height: =25
-                        Icon: =Icon.AddUser
-                        OnSelect: =Select(Parent)
-                        Width: =33
-                        X: |-
-                            =If(
-                                'Home Screen'.Size =ScreenSize.Small,
-                                0,
-                                200
-                            ) 
-                        Y: |-
-                            =If(
-                                'Home Screen'.Size =ScreenSize.Small,
-                                126,
-                                155
-                            ) 
-                        ZIndex: =23
-
-                UploadedImage2 As image:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledFill: =RGBA(244, 244, 244, 1)
-                    Image: |-
-                        =If(ThisItem.'Has attachments',
-                        First(ThisItem.Attachments).AbsoluteUri)
-                    ImagePosition: =ImagePosition.Fill
-                    OnSelect: =Select(Parent)
-                    Width: =114
-                    X: =
-                    Y: =27
-                    ZIndex: =28
-
-            "ContentGallery_2 As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
-                BorderColor: =RGBA(92, 74, 168, 1)
-                Fill: =RGBA(247, 245, 236, 1)
-                FillPortions: =0
-                FocusedBorderThickness: =0
-                Height: =Parent.Height
-                Items: |-
-                    =Switch(
-                        varTabSelected,
-                        1,
-                        Sort(
-                            Filter(
-                                Corrective_Maintenance,
-                                (Status.Value = filter_Status.Selected.Value || filter_Status.Selected.Value = Blank()),
-                                (Value(filter_ticketID.Text) = TicketID || filter_ticketID.Text = Blank()),
-                                (Area.Value = filter_Area.Selected.Value || filter_Area.Selected.Value = Blank()),
-                                (Priority.Value = filter_piority.Selected.Value || filter_piority.Selected.Value = Blank()),
-                                ('Request Date' >= filter_dateform.SelectedDate && 'Request Date' <= filter_dateto.SelectedDate),
-                                ('Issue Category'.Value = filter_category.Selected.Value || filter_category.Selected.Value = Blank()),
-                                (Requester.DisplayName = filter_RqFrom.Selected.DisplayName || filter_RqFrom.Selected.DisplayName = Blank()),
-                                'Assigned to'.DisplayName = filter_assigned.Selected.Value || filter_assigned.Selected.Value = "ALL"
-                            ),
-                            ID,
-                            SortOrder.Descending
-                        ),
-                        2,
-                        Sort(
-                            Filter(
-                                Corrective_Maintenance,
-                                (Status.Value = filter_Status.Selected.Value || filter_Status.Selected.Value = Blank()),
-                                (Value(filter_ticketID.Text) = TicketID || filter_ticketID.Text = Blank()),
-                                (Area.Value = filter_Area.Selected.Value || filter_Area.Selected.Value = Blank()),
-                                (Priority.Value = filter_piority.Selected.Value || filter_piority.Selected.Value = Blank()),
-                                ('Request Date' >= filter_dateform.SelectedDate && 'Request Date' <= filter_dateto.SelectedDate),
-                                ('Issue Category'.Value = filter_category.Selected.Value || filter_category.Selected.Value = Blank()),
-                                (Requester.DisplayName = filter_RqFrom.Selected.DisplayName || filter_RqFrom.Selected.DisplayName = Blank()),
-                                Requester.Email = User().Email
-                            ),
-                            ID,
-                            SortOrder.Descending
-                        ),
-                        3,
-                        Sort(
-                            Filter(
-                                Corrective_Maintenance,
-                                (Status.Value = filter_Status.Selected.Value || filter_Status.Selected.Value = Blank()),
-                                (Value(filter_ticketID.Text) = TicketID || filter_ticketID.Text = Blank()),
-                                (Area.Value = filter_Area.Selected.Value || filter_Area.Selected.Value = Blank()),
-                                (Priority.Value = filter_piority.Selected.Value || filter_piority.Selected.Value = Blank()),
-                                ('Request Date' >= filter_dateform.SelectedDate && 'Request Date' <= filter_dateto.SelectedDate),
-                                ('Issue Category'.Value = filter_category.Selected.Value || filter_category.Selected.Value = Blank()),
-                                (Requester.DisplayName = filter_RqFrom.Selected.DisplayName || filter_RqFrom.Selected.DisplayName = Blank()),
-                                'Assigned to'.Email = User().Email
-                            ),
-                            ID,
-                            SortOrder.Descending
-                        )
-                    )
-                    /*
-                    If(
-                        varTabSelected = 1,
-                        Filter(
-                            'Corrective_Maintenance',
-                            Gallery3_2.Selected.Value = "All" || Status.Value = Gallery3_2.Selected.Value
-                        ),
-                        Filter(
-                            'Corrective_Maintenance',
-                            (Gallery3_2.Selected.Value = "All" || Status.Value = Gallery3_2.Selected.Value) && 'Created By'.Email = User().Email
-                        )
-                    )
-                    */
-                Layout: =Layout.Vertical
-                LayoutMinHeight: =287
-                LayoutMinWidth: =100
-                OnSelect: =Set(varItem,ThisItem); ResetForm(Form1);ViewForm(Form1);Navigate('Form Screen')
-                ShowScrollbar: =false
-                TemplateSize: =100
-                Transition: =Transition.Pop
-                Visible: |-
-                    =If(varsmallScreen = true, false, true)
-                    //If(varTabSelected = 1,true,false)
-                Width: =Switch('Home Screen'.Size,ScreenSize.Small,600,Parent.Width-FilterContainer.Width)
-                ZIndex: =3
-
-                Separator3_1 As rectangle:
-                    BorderColor: =RGBA(92, 74, 168, 1)
-                    Fill: =RGBA(92, 74, 168, 1)
-                    Height: =1
-                    Width: =Parent.TemplateWidth
-                    Y: =Parent.TemplateHeight - 1
-                    ZIndex: =5
-
-                Container14 As groupContainer.verticalAutoLayoutContainer:
-                    Height: =Parent.TemplateHeight
-                    LayoutAlignItems: =LayoutAlignItems.Stretch
-                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                Container8 As groupContainer.horizontalAutoLayoutContainer:
+                    BorderThickness: =1
+                    DropShadow: =DropShadow.Light
+                    FillPortions: =0
+                    Height: =50
+                    LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutMinHeight: =50
+                    LayoutMinWidth: =250
                     LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =3
+                    PaddingLeft: =10
+                    PaddingRight: =10
+                    PaddingTop: =3
                     RadiusBottomLeft: =4
                     RadiusBottomRight: =4
                     RadiusTopLeft: =4
                     RadiusTopRight: =4
-                    Width: ='Home Screen'.Width - ContentGallery_Status_2.Width- If(FilterContainer.Visible = true, FilterContainer.Width,0)
-                    ZIndex: =17
+                    Visible: =_OpenSort
+                    ZIndex: =1
 
-                    Container17 As groupContainer.horizontalAutoLayoutContainer:
-                        AlignInContainer: =AlignInContainer.SetByContainer
-                        FillPortions: =1.5
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutMinHeight: =20
-                        LayoutMinWidth: =50
-                        LayoutMode: =LayoutMode.Auto
-                        RadiusBottomLeft: =4
-                        RadiusBottomRight: =4
-                        RadiusTopLeft: =4
-                        RadiusTopRight: =4
+                    Dropdown1 As dropdown:
+                        BorderColor: =RGBA(92, 74, 168, 1)
+                        ChevronBackground: =RGBA(30, 14, 91, 1)
+                        ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                        ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                        ChevronHoverBackground: =ColorFade(RGBA(30, 14, 91, 1), -20%)
+                        ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisabledColor: =RGBA(166, 166, 166, 1)
+                        DisabledFill: =RGBA(244, 244, 244, 1)
+                        Font: =Font.Lato
+                        HoverColor: =RGBA(0, 0, 0, 1)
+                        HoverFill: =RGBA(185, 173, 246, 1)
+                        Items: |-
+                            =[
+                                {
+                                    id: 0,
+                                    displayName: "Create date",
+                                    sortType: "ID"
+                                },
+                                {
+                                    id: 1,
+                                    displayName: "Due Date",
+                                    sortType: "DueDate"
+                                }
+                            ]
+                        OnChange: |-
+                            =UpdateContext({
+                                _sortType: Self.Selected.sortType
+                            })
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(92, 74, 168, 1)
+                        SelectionFill: =RGBA(30, 14, 91, 1)
+                        Size: =13
+                        Tooltip: ="Sort by"
+                        ZIndex: =1
+
+                    radSortBy As Radio.pcfdataset:
+                        DefaultSelectedItems: |-
+                            ={
+                                    displayName: "Descending",
+                                    Type: SortOrder.Descending
+                                }
+                        DisplayMode: =DisplayMode.Edit
+                        Font: =Font.Lato
+                        FontSize: =16
+                        Height: =50
+                        Items: |-
+                            =[
+                                {
+                                    displayName: "Descending",
+                                    Type: SortOrder.Descending
+                                },
+                                    {
+                                    displayName: "Ascending",
+                                    Type: SortOrder.Ascending
+                                }
+                            ]
+                        Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =320
+                        Width: =320
+                        X: =0
+                        Y: =0
                         ZIndex: =3
 
-                        "'1stContainer' As groupContainer.horizontalAutoLayoutContainer":
-                            EnableChildFocus: =false
-                            FillPortions: =0
-                            Height: =25
-                            LayoutMinHeight: =30
-                            LayoutMinWidth: =100
-                            LayoutMode: =LayoutMode.Auto
-                            RadiusBottomLeft: =4
-                            RadiusBottomRight: =4
-                            RadiusTopLeft: =4
-                            RadiusTopRight: =4
-                            ZIndex: =1
+                        displayName1 As pcfDataField.textualColumn:
+                            FieldDisplayName: ="displayName"
+                            FieldName: ="displayName"
+                            FieldType: ="s"
+                            FieldVariantName: ="textualColumn"
+                            Order: =1
+                            ZIndex: =23
 
-                            ContentGallery_TagIcon_2 As icon.Post:
-                                BorderColor: =RGBA(92, 74, 168, 1)
-                                Color: =RGBA(92, 74, 168, 1)
-                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                                DisabledColor: =RGBA(244, 244, 244, 1)
-                                Height: =20
-                                Icon: =Icon.Tag
-                                Width: =33
-                                X: =45
-                                ZIndex: =1
+                "colData As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
+                    BorderColor: =RGBA(92, 74, 168, 1)
+                    Fill: =RGBA(247, 245, 236, 1)
+                    FocusedBorderThickness: =0
+                    Height: =Parent.Height
+                    Items: |-
+                        =If(
+                            _sortType = "ID",
+                            Sort(
+                                Filter(
+                                    Corrective_Maintenance,
+                                    (Status.Value = filter_Status.Selected.Value || filter_Status.Selected.Value = Blank()),
+                                    (Value(filter_ticketID.Text) = TicketID || filter_ticketID.Text = Blank()),
+                                    (Area.Value = filter_Area.Selected.Value || filter_Area.Selected.Value = Blank()),
+                                    (Priority.Value = filter_piority.Selected.Value || filter_piority.Selected.Value = Blank()),
+                                    ('Request Date' >= filter_dateform.SelectedDate && 'Request Date' <= filter_dateto.SelectedDate),
+                                    ('Issue Category'.Value = filter_category.Selected.Value || filter_category.Selected.Value = Blank()),
+                                    (Requester.Email = User().Email && varTabSelected = 2) || ('Assigned to'.Email = User().Email && varTabSelected = 3) || varTabSelected = 1
+                                ),
+                                ID,
+                                radSortBy.Selected.Type
+                            ),
+                            Sort(
+                                Filter(
+                                    Corrective_Maintenance,
+                                    (Status.Value = filter_Status.Selected.Value || filter_Status.Selected.Value = Blank()),
+                                    (Value(filter_ticketID.Text) = TicketID || filter_ticketID.Text = Blank()),
+                                    (Area.Value = filter_Area.Selected.Value || filter_Area.Selected.Value = Blank()),
+                                    (Priority.Value = filter_piority.Selected.Value || filter_piority.Selected.Value = Blank()),
+                                    ('Request Date' >= filter_dateform.SelectedDate && 'Request Date' <= filter_dateto.SelectedDate),
+                                    ('Issue Category'.Value = filter_category.Selected.Value || filter_category.Selected.Value = Blank()),
+                                    (Requester.Email = User().Email && varTabSelected = 2) || ('Assigned to'.Email = User().Email && varTabSelected = 3) || varTabSelected = 1
+                                ),
+                                'Due Date',
+                                radSortBy.Selected.Type
+                            )
+                        )
+                    Layout: =Layout.Vertical
+                    LayoutMinHeight: =287
+                    LayoutMinWidth: =100
+                    OnSelect: =Set(varItem,ThisItem); ResetForm(Form1);ViewForm(Form1);Navigate('Form Screen')
+                    ShowScrollbar: =false
+                    TemplateSize: =100
+                    Transition: =Transition.Pop
+                    Visible: |
+                        =If(varsmallScreen = true, false, true)
+                    Width: =Switch('Home Screen'.Size,ScreenSize.Small,600,Parent.Width-FilterContainer.Width)
+                    ZIndex: =2
 
-                            Title2_1 As label:
-                                Align: =Align.Center
-                                AlignInContainer: =AlignInContainer.Center
-                                Color: =RGBA(0, 0, 0, 1)
-                                DisabledColor: =RGBA(166, 166, 166, 1)
-                                Font: =Font.Lato
-                                FontWeight: =FontWeight.Bold
-                                Height: =Parent.Height
-                                PaddingBottom: =0
-                                PaddingLeft: =0
-                                PaddingRight: =0
-                                PaddingTop: =0
-                                Size: =13
-                                Text: =ThisItem.TicketID
-                                VerticalAlign: =VerticalAlign.Top
-                                Width: =50
-                                ZIndex: =2
+                    Separator3_1 As rectangle:
+                        BorderColor: =RGBA(92, 74, 168, 1)
+                        Fill: =RGBA(92, 74, 168, 1)
+                        Height: =1
+                        Width: =Parent.TemplateWidth
+                        Y: =Parent.TemplateHeight - 1
+                        ZIndex: =5
 
-                            Subtitle1_1 As label:
-                                AlignInContainer: =AlignInContainer.Center
-                                Color: =RGBA(0, 0, 0, 1)
-                                DisabledColor: =RGBA(166, 166, 166, 1)
-                                FillPortions: =1
-                                FontWeight: =FontWeight.Semibold
-                                Height: =Parent.Height
-                                PaddingBottom: =0
-                                PaddingLeft: =0
-                                PaddingRight: =0
-                                PaddingTop: =0
-                                Size: =13
-                                Text: =ThisItem.Issue
-                                VerticalAlign: =VerticalAlign.Top
-                                Width: =If('Home Screen'.Width < 900 ,260 ,Parent.Width/2.6)
-                                X: =78
-                                ZIndex: =3
-
-                        Body1_1 As label:
-                            AlignInContainer: =AlignInContainer.Stretch
-                            Color: =RGBA(0, 0, 0, 1)
-                            DisabledColor: =RGBA(166, 166, 166, 1)
-                            FontWeight: =FontWeight.Lighter
-                            Height: =ContentGallery_2.TemplateHeight-25
-                            LayoutMinWidth: =100
-                            PaddingBottom: =0
-                            PaddingLeft: =0
-                            PaddingRight: =0
-                            PaddingTop: =0
-                            Size: =13
-                            Text: |-
-                                ="Issue Description: "&ThisItem.'Issue Description'
-                            VerticalAlign: =VerticalAlign.Top
-                            Width: =Parent.Width
-                            X: =20
-                            Y: =32
-                            ZIndex: =2
-
-                    Container21 As groupContainer.verticalAutoLayoutContainer:
-                        AlignInContainer: =AlignInContainer.SetByContainer
-                        LayoutDirection: =LayoutDirection.Vertical
-                        LayoutMinHeight: =100
-                        LayoutMinWidth: =250
+                    Container14 As groupContainer.verticalAutoLayoutContainer:
+                        Height: =Parent.TemplateHeight
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                         LayoutMode: =LayoutMode.Auto
                         RadiusBottomLeft: =4
                         RadiusBottomRight: =4
                         RadiusTopLeft: =4
                         RadiusTopRight: =4
-                        Visible: =If('Home Screen'.Width < 1100, false, true)
-                        ZIndex: =4
+                        Width: =Parent.Width
+                        ZIndex: =17
 
-                        AssignedToB As groupContainer.horizontalAutoLayoutContainer:
+                        Container17 As groupContainer.horizontalAutoLayoutContainer:
                             AlignInContainer: =AlignInContainer.SetByContainer
-                            FillPortions: =0
-                            Height: =25
+                            FillPortions: =1.5
+                            LayoutDirection: =LayoutDirection.Vertical
                             LayoutMinHeight: =20
-                            LayoutMinWidth: =250
+                            LayoutMinWidth: =50
                             LayoutMode: =LayoutMode.Auto
                             RadiusBottomLeft: =4
                             RadiusBottomRight: =4
                             RadiusTopLeft: =4
                             RadiusTopRight: =4
-                            Width: =Parent.Width
-                            ZIndex: =2
-
-                            Icon3_1 As icon.Person:
-                                BorderColor: =RGBA(92, 74, 168, 1)
-                                Color: =RGBA(92, 74, 168, 1)
-                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                                DisabledColor: =RGBA(244, 244, 244, 1)
-                                Height: =20
-                                Icon: =Icon.Person
-                                Width: =20
-                                ZIndex: =1
-
-                            Label11_2 As label:
-                                BorderColor: =RGBA(92, 74, 168, 1)
-                                Color: =If(ThisItem.'Assigned to'.DisplayName= Blank(), Color.Red, Color.Black) 
-                                DisabledColor: =RGBA(166, 166, 166, 1)
-                                FillPortions: =1
-                                Height: =20
-                                Size: =13
-                                Text: |-
-                                    ="Assigned To: " & If(ThisItem.'Assigned to'.DisplayName<> Blank(),ThisItem.'Assigned to'.DisplayName ," Not assigned")
-                                Width: =350
-                                ZIndex: =2
-
-                        LocationBlock As groupContainer.horizontalAutoLayoutContainer:
-                            FillPortions: =0
-                            Height: =25
-                            LayoutAlignItems: =LayoutAlignItems.Center
-                            LayoutMinHeight: =20
-                            LayoutMinWidth: =250
-                            LayoutMode: =LayoutMode.Auto
-                            RadiusBottomLeft: =4
-                            RadiusBottomRight: =4
-                            RadiusTopLeft: =4
-                            RadiusTopRight: =4
-                            Width: =Parent.Width
                             ZIndex: =3
 
-                            Icon3_2 As icon.Person:
-                                BorderColor: =RGBA(92, 74, 168, 1)
-                                Color: =RGBA(92, 74, 168, 1)
-                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                                DisabledColor: =RGBA(244, 244, 244, 1)
-                                Height: =20
-                                Icon: =Icon.Location
-                                Width: =20
+                            "'1stContainer' As groupContainer.horizontalAutoLayoutContainer":
+                                EnableChildFocus: =false
+                                FillPortions: =0
+                                Height: =25
+                                LayoutMinHeight: =30
+                                LayoutMinWidth: =100
+                                LayoutMode: =LayoutMode.Auto
+                                RadiusBottomLeft: =4
+                                RadiusBottomRight: =4
+                                RadiusTopLeft: =4
+                                RadiusTopRight: =4
                                 ZIndex: =1
 
-                            Label11_3 As label:
-                                BorderColor: =RGBA(92, 74, 168, 1)
+                                ContentGallery_TagIcon_2 As icon.Post:
+                                    BorderColor: =RGBA(92, 74, 168, 1)
+                                    Color: =RGBA(92, 74, 168, 1)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(244, 244, 244, 1)
+                                    Height: =20
+                                    Icon: =Icon.Tag
+                                    Width: =33
+                                    X: =45
+                                    ZIndex: =1
+
+                                Title2_1 As label:
+                                    Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Color: =RGBA(0, 0, 0, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    Font: =Font.Lato
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =Parent.Height
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: =ThisItem.TicketID
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =50
+                                    ZIndex: =2
+
+                                Subtitle1_1 As label:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Color: =RGBA(0, 0, 0, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    FillPortions: =1
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =Parent.Height
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: =ThisItem.Issue
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =If('Home Screen'.Width < 900 ,260 ,Parent.Width/2.6)
+                                    X: =78
+                                    ZIndex: =3
+
+                            Body1_1 As label:
+                                AlignInContainer: =AlignInContainer.Stretch
                                 Color: =RGBA(0, 0, 0, 1)
                                 DisabledColor: =RGBA(166, 166, 166, 1)
-                                DisplayMode: =DisplayMode.View
-                                FillPortions: =1
-                                LineHeight: =0.7
+                                FontWeight: =FontWeight.Lighter
+                                Height: =colData.TemplateHeight-25
+                                LayoutMinWidth: =100
+                                PaddingBottom: =0
+                                PaddingLeft: =0
+                                PaddingRight: =0
+                                PaddingTop: =0
                                 Size: =13
-                                Text: =ThisItem.Area.Value & "-" & ThisItem.Location
-                                Width: =200
+                                Text: |-
+                                    ="Issue Description: "&ThisItem.'Issue Description'
+                                VerticalAlign: =VerticalAlign.Top
+                                Width: =Parent.Width
+                                X: =20
+                                Y: =32
                                 ZIndex: =2
 
-                        LocationBlock_2 As groupContainer.horizontalAutoLayoutContainer:
-                            FillPortions: =0
-                            Height: =25
-                            LayoutMinHeight: =20
+                        Container21 As groupContainer.verticalAutoLayoutContainer:
+                            AlignInContainer: =AlignInContainer.SetByContainer
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutMinHeight: =100
                             LayoutMinWidth: =250
                             LayoutMode: =LayoutMode.Auto
                             RadiusBottomLeft: =4
                             RadiusBottomRight: =4
                             RadiusTopLeft: =4
                             RadiusTopRight: =4
-                            Width: =Parent.Width
+                            Visible: =If('Home Screen'.Width < 1100, false, true)
                             ZIndex: =4
 
-                            Icon3_3 As icon.Person:
-                                BorderColor: =RGBA(92, 74, 168, 1)
-                                Color: =RGBA(92, 74, 168, 1)
-                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                                DisabledColor: =RGBA(244, 244, 244, 1)
-                                Height: =20
-                                Icon: =Icon.CalendarBlank
-                                Width: =20
-                                ZIndex: =1
-
-                            Label11_4 As label:
-                                BorderColor: =RGBA(92, 74, 168, 1)
-                                Color: =RGBA(0, 0, 0, 1)
-                                DisabledColor: =RGBA(166, 166, 166, 1)
-                                Height: =20
-                                Size: =13
-                                Text: =ThisItem.Created
-                                Width: =200
+                            AssignedToB As groupContainer.horizontalAutoLayoutContainer:
+                                AlignInContainer: =AlignInContainer.SetByContainer
+                                FillPortions: =0
+                                Height: =25
+                                LayoutMinHeight: =20
+                                LayoutMinWidth: =250
+                                LayoutMode: =LayoutMode.Auto
+                                RadiusBottomLeft: =4
+                                RadiusBottomRight: =4
+                                RadiusTopLeft: =4
+                                RadiusTopRight: =4
+                                Width: =Parent.Width
                                 ZIndex: =2
 
-                        LocationBlock_3 As groupContainer.horizontalAutoLayoutContainer:
+                                Icon3_1 As icon.Person:
+                                    BorderColor: =RGBA(92, 74, 168, 1)
+                                    Color: =RGBA(92, 74, 168, 1)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(244, 244, 244, 1)
+                                    Height: =20
+                                    Icon: =Icon.Person
+                                    Width: =20
+                                    ZIndex: =1
+
+                                Label11_2 As label:
+                                    BorderColor: =RGBA(92, 74, 168, 1)
+                                    Color: =If(ThisItem.'Assigned to'.DisplayName= Blank(), Color.Red, Color.Black) 
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    FillPortions: =1
+                                    Height: =20
+                                    Size: =13
+                                    Text: |-
+                                        ="Assigned To: " & If(ThisItem.'Assigned to'.DisplayName<> Blank(),ThisItem.'Assigned to'.DisplayName ," Not assigned")
+                                    Width: =350
+                                    ZIndex: =2
+
+                            LocationBlock As groupContainer.horizontalAutoLayoutContainer:
+                                FillPortions: =0
+                                Height: =25
+                                LayoutAlignItems: =LayoutAlignItems.Center
+                                LayoutMinHeight: =20
+                                LayoutMinWidth: =250
+                                LayoutMode: =LayoutMode.Auto
+                                RadiusBottomLeft: =4
+                                RadiusBottomRight: =4
+                                RadiusTopLeft: =4
+                                RadiusTopRight: =4
+                                Width: =Parent.Width
+                                ZIndex: =3
+
+                                Icon3_2 As icon.Person:
+                                    BorderColor: =RGBA(92, 74, 168, 1)
+                                    Color: =RGBA(92, 74, 168, 1)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(244, 244, 244, 1)
+                                    Height: =20
+                                    Icon: =Icon.Location
+                                    Width: =20
+                                    ZIndex: =1
+
+                                Label11_3 As label:
+                                    BorderColor: =RGBA(92, 74, 168, 1)
+                                    Color: =RGBA(0, 0, 0, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    DisplayMode: =DisplayMode.View
+                                    FillPortions: =1
+                                    LineHeight: =0.7
+                                    Size: =13
+                                    Text: =ThisItem.Area.Value & "-" & ThisItem.Location
+                                    Width: =200
+                                    ZIndex: =2
+
+                            LocationBlock_2 As groupContainer.horizontalAutoLayoutContainer:
+                                FillPortions: =0
+                                Height: =25
+                                LayoutMinHeight: =20
+                                LayoutMinWidth: =250
+                                LayoutMode: =LayoutMode.Auto
+                                RadiusBottomLeft: =4
+                                RadiusBottomRight: =4
+                                RadiusTopLeft: =4
+                                RadiusTopRight: =4
+                                Width: =Parent.Width
+                                ZIndex: =4
+
+                                Icon3_3 As icon.Person:
+                                    BorderColor: =RGBA(92, 74, 168, 1)
+                                    Color: =RGBA(92, 74, 168, 1)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(244, 244, 244, 1)
+                                    Height: =20
+                                    Icon: =Icon.CalendarBlank
+                                    Width: =20
+                                    ZIndex: =1
+
+                                Label11_4 As label:
+                                    BorderColor: =RGBA(92, 74, 168, 1)
+                                    Color: =RGBA(0, 0, 0, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    Height: =20
+                                    Size: =13
+                                    Text: =ThisItem.Created
+                                    Width: =200
+                                    ZIndex: =2
+
+                            LocationBlock_3 As groupContainer.horizontalAutoLayoutContainer:
+                                FillPortions: =0
+                                Height: =25
+                                LayoutMinHeight: =20
+                                LayoutMinWidth: =250
+                                LayoutMode: =LayoutMode.Auto
+                                RadiusBottomLeft: =4
+                                RadiusBottomRight: =4
+                                RadiusTopLeft: =4
+                                RadiusTopRight: =4
+                                Width: =Parent.Width
+                                ZIndex: =5
+
+                                Icon3_4 As icon.Person:
+                                    BorderColor: =RGBA(92, 74, 168, 1)
+                                    Color: =RGBA(92, 74, 168, 1)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(244, 244, 244, 1)
+                                    Height: =20
+                                    Icon: =Icon.AddUser
+                                    Width: =20
+                                    ZIndex: =1
+
+                                Label11_5 As label:
+                                    BorderColor: =RGBA(92, 74, 168, 1)
+                                    Color: =RGBA(0, 0, 0, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    Height: =20
+                                    Size: =13
+                                    Text: =ThisItem.Requester.DisplayName
+                                    Width: =200
+                                    ZIndex: =2
+
+                        Container9 As groupContainer.verticalAutoLayoutContainer:
                             FillPortions: =0
-                            Height: =25
-                            LayoutMinHeight: =20
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutGap: =5
+                            LayoutJustifyContent: =LayoutJustifyContent.Center
+                            LayoutMinHeight: =100
                             LayoutMinWidth: =250
                             LayoutMode: =LayoutMode.Auto
+                            PaddingBottom: =5
+                            PaddingTop: =5
                             RadiusBottomLeft: =4
                             RadiusBottomRight: =4
                             RadiusTopLeft: =4
                             RadiusTopRight: =4
-                            Width: =Parent.Width
+                            Width: =200
                             ZIndex: =5
 
-                            Icon3_4 As icon.Person:
-                                BorderColor: =RGBA(92, 74, 168, 1)
-                                Color: =RGBA(92, 74, 168, 1)
+                            ContentGallery_Status_2 As button:
+                                BorderColor: =Switch(ThisItem.Status.Value,"Closed",Color.DarkGreen,"In Progress",Color.DarkGoldenRod, "Blocked", Color.DarkRed,"New", Color.DarkBlue)
+                                Color: |
+                                    =Switch(ThisItem.Status.Value,"Pending",Color.Black,"PENDING INTERNAL",Color.Black,"PENDING OUTSOURCE",Color.Black,RGBA(252, 252, 249, 1))
                                 DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                                DisabledColor: =RGBA(244, 244, 244, 1)
-                                Height: =20
-                                Icon: =Icon.AddUser
-                                Width: =20
+                                DisabledColor: =RGBA(166, 166, 166, 1)
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                Fill: |-
+                                    =Switch(
+                                        ThisItem.Status.Value,
+                                        "Pending",
+                                        Color.LightGoldenRodYellow,
+                                        "PENDING INTERNAL",
+                                        Color.LightGoldenRodYellow,
+                                        "PENDING OUTSOURCE",
+                                        Color.LightGoldenRodYellow,
+                                        "DONE",
+                                        Color.ForestGreen,
+                                        "REJECTED",
+                                        Color.DarkRed,
+                                        "New",
+                                        Color.DarkBlue
+                                    )
+                                FontWeight: =FontWeight.Semibold
+                                Height: =Switch('Home Screen'.Size,ScreenSize.Small,30,ScreenSize.Medium,30,44)
+                                HoverColor: =RGBA(255, 255, 255, 1)
+                                HoverFill: =ColorFade(RGBA(30, 14, 91, 1), -20%)
+                                OnSelect: =Select(colData)
+                                RadiusBottomLeft: =80
+                                RadiusBottomRight: =80
+                                RadiusTopLeft: =80
+                                RadiusTopRight: =80
+                                Size: =If('Home Screen'.Width <1100, 8, 15)
+                                Text: |-
+                                    =
+                                    ThisItem.Status.Value
+                                Width: =Switch('Home Screen'.Size,ScreenSize.Small,100,ScreenSize.Medium,140,165)
+                                X: =991
                                 ZIndex: =1
 
-                            Label11_5 As label:
-                                BorderColor: =RGBA(92, 74, 168, 1)
-                                Color: =RGBA(0, 0, 0, 1)
+                            ContentGallery_Prioritty_2 As button:
+                                BorderColor: =Switch(ThisItem.Priority.Value,"Critical",Color.DarkRed,"High",Color.OrangeRed,"Normal",Color.DarkBlue,Color.Gray)
+                                Color: =RGBA(252, 252, 249, 1)
+                                DisabledBorderColor: =RGBA(166, 166, 166, 1)
                                 DisabledColor: =RGBA(166, 166, 166, 1)
-                                Height: =20
-                                Size: =13
-                                Text: =ThisItem.Requester.DisplayName
-                                Width: =200
+                                DisabledFill: =RGBA(244, 244, 244, 1)
+                                Fill: |-
+                                    =If(Not(ThisItem.Status.Value = "DONE"),
+                                    Switch(ThisItem.Priority.Value,"Urgent",Color.DarkRed,"Important",Color.OrangeRed,"Medium",Color.DarkBlue,Color.Gray) ,Color.Gray)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =Switch('Home Screen'.Size,ScreenSize.Small,30,ScreenSize.Medium,30,44)
+                                HoverColor: =RGBA(255, 255, 255, 1)
+                                HoverFill: =ColorFade(RGBA(30, 14, 91, 1), -20%)
+                                OnSelect: =Select(colData)
+                                RadiusBottomLeft: =80
+                                RadiusBottomRight: =80
+                                RadiusTopLeft: =80
+                                RadiusTopRight: =80
+                                Size: =If('Home Screen'.Width <1100, 8, 15)
+                                Text: =ThisItem.Priority.Value
+                                Width: =Switch('Home Screen'.Size,ScreenSize.Small,100,ScreenSize.Medium,140,165)
+                                X: =991
+                                Y: =51
                                 ZIndex: =2
-
-                ContentGallery_Status_2 As button:
-                    BorderColor: =Switch(ThisItem.Status.Value,"Closed",Color.DarkGreen,"In Progress",Color.DarkGoldenRod, "Blocked", Color.DarkRed,"New", Color.DarkBlue)
-                    Color: |
-                        =Switch(ThisItem.Status.Value,"Pending",Color.Black,"PENDING INTERNAL",Color.Black,"PENDING OUTSOURCE",Color.Black,RGBA(252, 252, 249, 1))
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    DisabledFill: =RGBA(244, 244, 244, 1)
-                    Fill: |-
-                        =Switch(
-                            ThisItem.Status.Value,
-                            "Pending",
-                            Color.LightGoldenRodYellow,
-                            "PENDING INTERNAL",
-                            Color.LightGoldenRodYellow,
-                            "PENDING OUTSOURCE",
-                            Color.LightGoldenRodYellow,
-                            "DONE",
-                            Color.ForestGreen,
-                            "REJECTED",
-                            Color.DarkRed,
-                            "New",
-                            Color.DarkBlue
-                        )
-                    FontWeight: =FontWeight.Semibold
-                    Height: =Switch('Home Screen'.Size,ScreenSize.Small,30,ScreenSize.Medium,30,44)
-                    HoverColor: =RGBA(255, 255, 255, 1)
-                    HoverFill: =ColorFade(RGBA(30, 14, 91, 1), -20%)
-                    OnSelect: =Select(Parent)
-                    RadiusBottomLeft: =80
-                    RadiusBottomRight: =80
-                    RadiusTopLeft: =80
-                    RadiusTopRight: =80
-                    Size: =If('Home Screen'.Width <1100, 8, 15)
-                    Text: |-
-                        =
-                        ThisItem.Status.Value
-                    Width: =Switch('Home Screen'.Size,ScreenSize.Small,100,ScreenSize.Medium,140,165)
-                    X: ='Home Screen'.Width - Self.Width-If('Home Screen'.Width < 1100,0, 210)
-                    Y: =5
-                    ZIndex: =18
-
-                ContentGallery_Prioritty_2 As button:
-                    BorderColor: =Switch(ThisItem.Priority.Value,"Critical",Color.DarkRed,"High",Color.OrangeRed,"Normal",Color.DarkBlue,Color.Gray)
-                    Color: =RGBA(252, 252, 249, 1)
-                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    DisabledFill: =RGBA(244, 244, 244, 1)
-                    Fill: |-
-                        =If(Not(ThisItem.Status.Value = "DONE"),
-                        Switch(ThisItem.Priority.Value,"Urgent",Color.DarkRed,"Important",Color.OrangeRed,"Medium",Color.DarkBlue,Color.Gray) ,Color.Gray)
-                    FontWeight: =FontWeight.Semibold
-                    Height: =Switch('Home Screen'.Size,ScreenSize.Small,30,ScreenSize.Medium,30,44)
-                    HoverColor: =RGBA(255, 255, 255, 1)
-                    HoverFill: =ColorFade(RGBA(30, 14, 91, 1), -20%)
-                    OnSelect: =Select(Parent)
-                    RadiusBottomLeft: =80
-                    RadiusBottomRight: =80
-                    RadiusTopLeft: =80
-                    RadiusTopRight: =80
-                    Size: =If('Home Screen'.Width <1100, 8, 15)
-                    Text: =ThisItem.Priority.Value
-                    Width: =Switch('Home Screen'.Size,ScreenSize.Small,100,ScreenSize.Medium,140,165)
-                    X: ='Home Screen'.Width - Self.Width-If('Home Screen'.Width < 1100,0, 210)
-                    Y: =55
-                    ZIndex: =19
 
         TicketsContainer_1 As groupContainer.horizontalAutoLayoutContainer:
             AlignInContainer: =AlignInContainer.SetByContainer
@@ -1995,6 +1470,7 @@
             RadiusBottomRight: =4
             RadiusTopLeft: =4
             RadiusTopRight: =4
+            Visible: =false
             ZIndex: =8
 
             Label5 As label:
@@ -2022,5 +1498,6 @@
                 Size: =13
                 Text: |-
                     ="Version: 2.0.2"
+                Visible: =false
                 ZIndex: =2
 
