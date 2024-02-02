@@ -331,6 +331,7 @@
                         DisabledBorderColor: =RGBA(166, 166, 166, 1)
                         DisabledColor: =RGBA(244, 244, 244, 1)
                         FillPortions: =1
+                        Height: =Parent.Height/2
                         Icon: =Icon.DockRight
                         OnSelect: |-
                             =If(
@@ -338,6 +339,8 @@
                                 UpdateContext({_OpenSort: false}),
                                 UpdateContext({_OpenSort: true})
                             )
+                        Tooltip: ="Advance"
+                        Visible: =!varsmallScreen
                         ZIndex: =2
 
                 Label1 As label:
@@ -770,6 +773,7 @@
                     FillPortions: =0
                     Height: =50
                     LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutGap: =10
                     LayoutMinHeight: =50
                     LayoutMinWidth: =250
                     LayoutMode: =LayoutMode.Auto
@@ -781,8 +785,19 @@
                     RadiusBottomRight: =4
                     RadiusTopLeft: =4
                     RadiusTopRight: =4
-                    Visible: =_OpenSort
+                    Visible: =_OpenSort || varsmallScreen
                     ZIndex: =1
+
+                    Label7 As label:
+                        BorderColor: =RGBA(92, 74, 168, 1)
+                        Color: =RGBA(0, 0, 0, 1)
+                        DisabledColor: =RGBA(166, 166, 166, 1)
+                        Font: =Font.Lato
+                        Size: =13
+                        Text: |-
+                            ="Sort by:"
+                        Width: =70
+                        ZIndex: =1
 
                     Dropdown1 As dropdown:
                         BorderColor: =RGBA(92, 74, 168, 1)
@@ -794,6 +809,7 @@
                         DisabledBorderColor: =RGBA(166, 166, 166, 1)
                         DisabledColor: =RGBA(166, 166, 166, 1)
                         DisabledFill: =RGBA(244, 244, 244, 1)
+                        FillPortions: =1
                         Font: =Font.Lato
                         HoverColor: =RGBA(0, 0, 0, 1)
                         HoverFill: =RGBA(185, 173, 246, 1)
@@ -810,6 +826,7 @@
                                     sortType: "DueDate"
                                 }
                             ]
+                        LayoutMinWidth: =30
                         OnChange: |-
                             =UpdateContext({
                                 _sortType: Self.Selected.sortType
@@ -819,7 +836,7 @@
                         SelectionFill: =RGBA(30, 14, 91, 1)
                         Size: =13
                         Tooltip: ="Sort by"
-                        ZIndex: =1
+                        ZIndex: =2
 
                     radSortBy As Radio.pcfdataset:
                         DefaultSelectedItems: |-
@@ -828,9 +845,10 @@
                                     Type: SortOrder.Descending
                                 }
                         DisplayMode: =DisplayMode.Edit
+                        FillPortions: =2
                         Font: =Font.Lato
                         FontSize: =16
-                        Height: =50
+                        Height: =Parent.Height
                         Items: |-
                             =[
                                 {
@@ -844,7 +862,7 @@
                             ]
                         Layout: ='RadioGroupCanvas.Layout'.Horizontal
                         LayoutMinHeight: =100
-                        LayoutMinWidth: =320
+                        LayoutMinWidth: =50
                         Width: =320
                         X: =0
                         Y: =0
@@ -857,6 +875,76 @@
                             FieldVariantName: ="textualColumn"
                             Order: =1
                             ZIndex: =23
+
+                    Label7_1 As label:
+                        BorderColor: =RGBA(92, 74, 168, 1)
+                        Color: =RGBA(0, 0, 0, 1)
+                        DisabledColor: =RGBA(166, 166, 166, 1)
+                        Font: =Font.Lato
+                        Size: =13
+                        Text: |-
+                            ="Date From - Date To:"
+                        Visible: =!varsmallScreen
+                        Width: =200
+                        ZIndex: =4
+
+                    filter_dueDateFrom As datepicker:
+                        BorderColor: =RGBA(0,0,0,1)
+                        CalendarHeaderFill: =RGBA(30, 14, 91, 1)
+                        Color: =RGBA(0,0,0,1)
+                        DefaultDate: =Today()-365
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisabledColor: =RGBA(166, 166, 166, 1)
+                        DisabledFill: =RGBA(244, 244, 244, 1)
+                        EndYear: =2024
+                        Fill: =RGBA(255,255,255,1)
+                        FillPortions: =1
+                        Font: =Font.Lato
+                        Height: =If('Home Screen'.Width <1100, 30,40)
+                        HoverDateFill: =RGBA(185, 173, 246, 1)
+                        IconBackground: =RGBA(30, 14, 91, 1)
+                        LayoutMinHeight: =10
+                        LayoutMinWidth: =200
+                        PaddingLeft: =5
+                        PaddingTop: =5
+                        Reset: |
+                            =resetfilter
+                        SelectedDateFill: =RGBA(30, 14, 91, 1)
+                        StartOfWeek: =StartOfWeek.Monday
+                        StartYear: =2023
+                        Visible: =!varsmallScreen
+                        Width: =Parent.Width - 10
+                        Y: =473
+                        ZIndex: =5
+
+                    filter_dueDateTo As datepicker:
+                        BorderColor: =RGBA(0,0,0,1)
+                        CalendarHeaderFill: =RGBA(30, 14, 91, 1)
+                        Color: =RGBA(0,0,0,1)
+                        DefaultDate: =Today()+ 90
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisabledColor: =RGBA(166, 166, 166, 1)
+                        DisabledFill: =RGBA(244, 244, 244, 1)
+                        EndYear: =2024
+                        Fill: =RGBA(255,255,255,1)
+                        FillPortions: =1
+                        Font: =Font.Lato
+                        Height: =If('Home Screen'.Width <1100, 30,40)
+                        HoverDateFill: =RGBA(185, 173, 246, 1)
+                        IconBackground: =RGBA(30, 14, 91, 1)
+                        LayoutMinHeight: =10
+                        LayoutMinWidth: =200
+                        PaddingLeft: =5
+                        PaddingTop: =5
+                        Reset: |
+                            =resetfilter
+                        SelectedDateFill: =RGBA(30, 14, 91, 1)
+                        StartOfWeek: =StartOfWeek.Monday
+                        StartYear: =2023
+                        Visible: =!varsmallScreen
+                        Width: =Parent.Width - 10
+                        Y: =473
+                        ZIndex: =6
 
                 "colData As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
                     BorderColor: =RGBA(92, 74, 168, 1)
@@ -874,6 +962,7 @@
                                     (Area.Value = filter_Area.Selected.Value || filter_Area.Selected.Value = Blank()),
                                     (Priority.Value = filter_piority.Selected.Value || filter_piority.Selected.Value = Blank()),
                                     ('Request Date' >= filter_dateform.SelectedDate && 'Request Date' <= filter_dateto.SelectedDate),
+                                     ('Due Date' >= filter_dueDateFrom.SelectedDate && 'Due Date' <= filter_dueDateTo.SelectedDate),
                                     ('Issue Category'.Value = filter_category.Selected.Value || filter_category.Selected.Value = Blank()),
                                     (Requester.Email = User().Email && varTabSelected = 2) || ('Assigned to'.Email = User().Email && varTabSelected = 3) || varTabSelected = 1
                                 ),
@@ -889,6 +978,7 @@
                                     (Priority.Value = filter_piority.Selected.Value || filter_piority.Selected.Value = Blank()),
                                     ('Request Date' >= filter_dateform.SelectedDate && 'Request Date' <= filter_dateto.SelectedDate),
                                     ('Issue Category'.Value = filter_category.Selected.Value || filter_category.Selected.Value = Blank()),
+                                    ('Due Date' >= filter_dueDateFrom.SelectedDate && 'Due Date' <= filter_dueDateTo.SelectedDate),
                                     (Requester.Email = User().Email && varTabSelected = 2) || ('Assigned to'.Email = User().Email && varTabSelected = 3) || varTabSelected = 1
                                 ),
                                 'Due Date',
@@ -929,7 +1019,7 @@
 
                         Container17 As groupContainer.horizontalAutoLayoutContainer:
                             AlignInContainer: =AlignInContainer.SetByContainer
-                            FillPortions: =1.5
+                            FillPortions: =5
                             LayoutDirection: =LayoutDirection.Vertical
                             LayoutMinHeight: =20
                             LayoutMinWidth: =50
@@ -1022,6 +1112,7 @@
 
                         Container21 As groupContainer.verticalAutoLayoutContainer:
                             AlignInContainer: =AlignInContainer.SetByContainer
+                            FillPortions: =3
                             LayoutDirection: =LayoutDirection.Vertical
                             LayoutMinHeight: =100
                             LayoutMinWidth: =250
@@ -1035,7 +1126,6 @@
 
                             AssignedToB As groupContainer.horizontalAutoLayoutContainer:
                                 AlignInContainer: =AlignInContainer.SetByContainer
-                                FillPortions: =0
                                 Height: =25
                                 LayoutMinHeight: =20
                                 LayoutMinWidth: =250
@@ -1045,7 +1135,7 @@
                                 RadiusTopLeft: =4
                                 RadiusTopRight: =4
                                 Width: =Parent.Width
-                                ZIndex: =2
+                                ZIndex: =1
 
                                 Icon3_1 As icon.Person:
                                     BorderColor: =RGBA(92, 74, 168, 1)
@@ -1070,7 +1160,6 @@
                                     ZIndex: =2
 
                             LocationBlock As groupContainer.horizontalAutoLayoutContainer:
-                                FillPortions: =0
                                 Height: =25
                                 LayoutAlignItems: =LayoutAlignItems.Center
                                 LayoutMinHeight: =20
@@ -1081,7 +1170,7 @@
                                 RadiusTopLeft: =4
                                 RadiusTopRight: =4
                                 Width: =Parent.Width
-                                ZIndex: =3
+                                ZIndex: =2
 
                                 Icon3_2 As icon.Person:
                                     BorderColor: =RGBA(92, 74, 168, 1)
@@ -1090,6 +1179,7 @@
                                     DisabledColor: =RGBA(244, 244, 244, 1)
                                     Height: =20
                                     Icon: =Icon.Location
+                                    Tooltip: ="Location"
                                     Width: =20
                                     ZIndex: =1
 
@@ -1099,14 +1189,50 @@
                                     DisabledColor: =RGBA(166, 166, 166, 1)
                                     DisplayMode: =DisplayMode.View
                                     FillPortions: =1
+                                    Height: =20
                                     LineHeight: =0.7
                                     Size: =13
                                     Text: =ThisItem.Area.Value & "-" & ThisItem.Location
+                                    Tooltip: ="Location"
                                     Width: =200
                                     ZIndex: =2
 
                             LocationBlock_2 As groupContainer.horizontalAutoLayoutContainer:
-                                FillPortions: =0
+                                Height: =25
+                                LayoutMinHeight: =20
+                                LayoutMinWidth: =250
+                                LayoutMode: =LayoutMode.Auto
+                                RadiusBottomLeft: =4
+                                RadiusBottomRight: =4
+                                RadiusTopLeft: =4
+                                RadiusTopRight: =4
+                                Width: =Parent.Width
+                                ZIndex: =3
+
+                                Icon3_3 As icon.Person:
+                                    BorderColor: =RGBA(92, 74, 168, 1)
+                                    Color: =RGBA(92, 74, 168, 1)
+                                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                                    DisabledColor: =RGBA(244, 244, 244, 1)
+                                    Height: =20
+                                    Icon: =Icon.CalendarBlank
+                                    Tooltip: ="Created Date"
+                                    Width: =20
+                                    ZIndex: =1
+
+                                Label11_4 As label:
+                                    BorderColor: =RGBA(92, 74, 168, 1)
+                                    Color: =RGBA(0, 0, 0, 1)
+                                    DisabledColor: =RGBA(166, 166, 166, 1)
+                                    FillPortions: =1
+                                    Height: =20
+                                    Size: =13
+                                    Text: =ThisItem.Created
+                                    Tooltip: ="Created Date"
+                                    Width: =160
+                                    ZIndex: =2
+
+                            LocationBlock_4 As groupContainer.horizontalAutoLayoutContainer:
                                 Height: =25
                                 LayoutMinHeight: =20
                                 LayoutMinWidth: =250
@@ -1118,28 +1244,32 @@
                                 Width: =Parent.Width
                                 ZIndex: =4
 
-                                Icon3_3 As icon.Person:
+                                Icon2_1 As icon.Calendar:
                                     BorderColor: =RGBA(92, 74, 168, 1)
                                     Color: =RGBA(92, 74, 168, 1)
                                     DisabledBorderColor: =RGBA(166, 166, 166, 1)
                                     DisabledColor: =RGBA(244, 244, 244, 1)
-                                    Height: =20
-                                    Icon: =Icon.CalendarBlank
+                                    DisplayMode: =DisplayMode.View
+                                    Height: |
+                                        =20
+                                    Icon: =Icon.AddToCalendar
+                                    Tooltip: ="Due Date"
                                     Width: =20
-                                    ZIndex: =1
+                                    ZIndex: =3
 
-                                Label11_4 As label:
+                                Label11_8 As label:
                                     BorderColor: =RGBA(92, 74, 168, 1)
                                     Color: =RGBA(0, 0, 0, 1)
                                     DisabledColor: =RGBA(166, 166, 166, 1)
+                                    FillPortions: =1
                                     Height: =20
                                     Size: =13
-                                    Text: =ThisItem.Created
-                                    Width: =200
-                                    ZIndex: =2
+                                    Text: =ThisItem.'Due Date'
+                                    Tooltip: ="Due Date"
+                                    Width: =160
+                                    ZIndex: =4
 
                             LocationBlock_3 As groupContainer.horizontalAutoLayoutContainer:
-                                FillPortions: =0
                                 Height: =25
                                 LayoutMinHeight: =20
                                 LayoutMinWidth: =250

@@ -1,6 +1,6 @@
 App As appinfo:
     BackEnabled: =false
-    OnStart: |
+    OnStart: |+
         =ClearCollect(
             colTabs,
             {
@@ -47,29 +47,41 @@ App As appinfo:
         );
         ClearCollect(
             colAdmin,
-            "thanh.le@northstar.vn",
-            "tung.le@northstar.vn",
-            "nghia.nguyen@northstar.vn",
-            "Hai.Vu@northstar.vn",
-            "tung.pham@northstar.vn",
-            "Tony.Nguyen@northstar.vn",
-            "kenny.phung@northstar.vn",
-            "quan.vu@northstar.vn",
-            "chuong.nguyen@northstar.vn"
+        [{
+        email:    "tung.le@northstar.vn",
+        level: 1
+        },{
+         email:    "nghia.nguyen@northstar.vn",
+        level: 1
+        },{
+          email:    "Hai.Vu@northstar.vn",
+        level: 2
+        },{
+          email:    "tung.pham@northstar.vn",
+        level: 2
+        },{
+          email:    "Tony.Nguyen@northstar.vn",
+        level: 2
+        },{
+           email:   "finn.luu@northstar.vn",
+        level: 2
+        }]
+        
         );
         If(
-            User().Email in colAdmin,
+            User().Email in colAdmin.email,
             Set(
                 _varroleadmin,
                 true
             )
         );
         If(
-            User().Email in colAdmin,
+            User().Email in colAdmin.email,
             Set(
                 varTabSelected,
                 1
-            ),
+            );
+            Set(varLevel, LookUp(colAdmin,email = User().Email,level)),
             Set(
                 varTabSelected,
                 2
@@ -89,6 +101,7 @@ App As appinfo:
                 )
             )
         );
+        
     StartScreen: |-
         =Switch(
             Param("startscreen"),
