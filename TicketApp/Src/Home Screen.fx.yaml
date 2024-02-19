@@ -30,7 +30,9 @@
             LayoutMinHeight: =100
             LayoutMinWidth: =50
             LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =10
             PaddingRight: =5
+            PaddingTop: =10
             ZIndex: =1
 
             Label12_3 As label:
@@ -68,10 +70,12 @@
                 ZIndex: =4
 
             Image2 As image:
+                AlignInContainer: =AlignInContainer.Center
                 BorderColor: =RGBA(92, 74, 168, 1)
                 DisabledBorderColor: =RGBA(166, 166, 166, 1)
                 DisabledFill: =RGBA(244, 244, 244, 1)
                 Fill: =RGBA(30, 14, 91, 1)
+                Height: =45
                 Image: =User().Image
                 LayoutMinHeight: =70
                 RadiusBottomLeft: =70
@@ -79,7 +83,7 @@
                 RadiusTopLeft: =70
                 RadiusTopRight: =70
                 Visible: ='Home Screen'.Size<>ScreenSize.Small && 'Home Screen'.Size<>ScreenSize.Medium
-                Width: =70
+                Width: =45
                 ZIndex: =5
 
             Label12 As label:
@@ -1548,7 +1552,7 @@
                             HoverFill: =RGBA(185, 173, 246, 1)
                             Mode: =TextMode.MultiLine
                             PaddingTop: =10
-                            Reset: =SendEmail
+                            Reset: =SendEmail.Pressed
                             Size: =13
                             Width: =800
                             Y: =10

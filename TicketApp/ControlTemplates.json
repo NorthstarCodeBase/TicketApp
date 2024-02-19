@@ -265,7 +265,7 @@
     "Name": "PowerApps_CoreControls_RadioGroupCanvas",
     "OverridableProperties": {},
     "TemplateDisplayName": "Radio",
-    "Version": "0.0.16"
+    "Version": "0.0.17"
   },
   "rectangle": {
     "CustomGroupControlTemplateName": "",

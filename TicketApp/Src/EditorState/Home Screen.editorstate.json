@@ -2180,7 +2180,7 @@
         {
           "Category": "Design",
           "PropertyName": "Width",
-          "RuleProviderType": "User"
+          "RuleProviderType": "Unknown"
         },
         {
           "Category": "Design",
@@ -2443,7 +2443,7 @@
       "MetaDataIDKey": "",
       "Name": "Button5",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 5,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -3856,7 +3856,7 @@
       "MetaDataIDKey": "",
       "Name": "Container16",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 5,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13810,7 +13810,23 @@
         "RadiusTopRight",
         "RadiusBottomLeft",
         "RadiusBottomRight",
-        "DropShadow"
+        "DropShadow",
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "",
+          "InvariantPropertyName": "PaddingTop",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        },
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "",
+          "InvariantPropertyName": "PaddingBottom",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        }
       ],
       "DynamicProperties": [
         {
@@ -14008,6 +14024,16 @@
         {
           "Category": "Design",
           "PropertyName": "DropShadow",
+          "RuleProviderType": "Unknown"
+        },
+        {
+          "Category": "Design",
+          "PropertyName": "PaddingTop",
+          "RuleProviderType": "Unknown"
+        },
+        {
+          "Category": "Design",
+          "PropertyName": "PaddingBottom",
           "RuleProviderType": "Unknown"
         }
       ],
@@ -15969,7 +15995,14 @@
           "IsLockable": false,
           "NameMapSourceSchema": "?"
         },
-        "Height",
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "",
+          "InvariantPropertyName": "Height",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        },
         {
           "AFDDataSourceName": "",
           "AutoRuleBindingEnabled": false,
@@ -16107,7 +16140,7 @@
       "MetaDataIDKey": "",
       "Name": "Image2",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 3,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -16393,7 +16426,7 @@
       "MetaDataIDKey": "",
       "Name": "Image4",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 1,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -16694,7 +16727,7 @@
       "MetaDataIDKey": "",
       "Name": "Label",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 2,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -22231,7 +22264,7 @@
         {
           "Category": "Design",
           "PropertyName": "Width",
-          "RuleProviderType": "User"
+          "RuleProviderType": "Unknown"
         },
         {
           "Category": "Design",
@@ -22881,7 +22914,7 @@
         {
           "Category": "Design",
           "PropertyName": "Width",
-          "RuleProviderType": "User"
+          "RuleProviderType": "Unknown"
         },
         {
           "Category": "Design",
@@ -23079,7 +23112,7 @@
       "MetaDataIDKey": "",
       "Name": "Label12",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 4,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -23413,7 +23446,7 @@
       "MetaDataIDKey": "",
       "Name": "Label12_2",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 6,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -30223,7 +30256,7 @@
       "MetaDataIDKey": "",
       "Name": "TabsContainer",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 2,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -30442,7 +30475,7 @@
       "MetaDataIDKey": "",
       "Name": "TicketsContainer",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 3,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -30673,7 +30706,7 @@
       "MetaDataIDKey": "",
       "Name": "TicketsContainer_1",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 4,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

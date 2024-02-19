@@ -1,7 +1,7 @@
 {
   "FormatVersion": "0.24",
   "Header": {
-    "DocVersion": "1.336",
+    "DocVersion": "1.337",
     "MinVersionToLoad": "1.331",
     "MSAppStructureVersion": "2.0"
   },
@@ -73,7 +73,7 @@
       "pdffunction": false,
       "powerfxdecimal": false,
       "powerfxv1": false,
-      "primaryoutputpropertycoerciondeprecated": false,
+      "primaryoutputpropertycoerciondeprecated": true,
       "projectionmapping": true,
       "reactformulabar": true,
       "reliableconcurrent": true,
@@ -111,7 +111,7 @@
     "FileID": "c3048e2e-c29a-42d5-b4a9-161c0edf4be3",
     "Id": "c3048e2e-c29a-42d5-b4a9-161c0edf4be3",
     "InstrumentationKey": "",
-    "LocalDatabaseReferences": "{}",
+    "LocalDatabaseReferences": "",
     "ManualOfflineProfileId": "",
     "Name": "NPV Ticket App",
     "OriginatingVersion": "1.314",

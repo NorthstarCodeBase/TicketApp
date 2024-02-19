@@ -723,7 +723,7 @@
                     Default: |-
                         =If(Form1.Mode = FormMode.New, {Value: "Low - 90 days"},
                             ThisItem.Priority)
-                    DisplayMode: =If(Form1.Mode = FormMode.Edit && varLevel =2 , DisplayMode.Edit,DisplayMode.View)
+                    DisplayMode: =If(Form1.Mode <> FormMode.View && varLevel =2 , DisplayMode.Edit,DisplayMode.View)
                     DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_12")
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
