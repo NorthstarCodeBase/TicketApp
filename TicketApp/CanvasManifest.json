@@ -1,7 +1,7 @@
 {
   "FormatVersion": "0.24",
   "Header": {
-    "DocVersion": "1.337",
+    "DocVersion": "1.338",
     "MinVersionToLoad": "1.331",
     "MSAppStructureVersion": "2.0"
   },
@@ -25,6 +25,7 @@
       "dataverseactionsenabled": false,
       "delaycontrolrendering": true,
       "delayloadscreens": true,
+      "disablebehaviorreturntypecheck": false,
       "disablecdsfileandlargeimage": false,
       "disableruntimepolicies": false,
       "dynamicschema": false,
@@ -36,10 +37,9 @@
       "enablecopilotcontrol": false,
       "enabledataverseoffline": false,
       "enableeditcacherefreshfrequency": false,
+      "enableeditinmcs": false,
       "enableexcelonlinebusinessv2connector": false,
-      "enableexperimentaldataverseoffline": false,
       "enableideaspanel": false,
-      "enablelargefilesindataverseoffline": false,
       "enablelegacybarcodescanner": false,
       "enableonstart": true,
       "enableonstartnavigate": true,
