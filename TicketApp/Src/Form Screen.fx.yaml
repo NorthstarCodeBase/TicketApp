@@ -142,7 +142,7 @@
                     DataField: ="Modified"
                     Default: =ThisItem.Modified
                     DisplayMode: =DisplayMode.View
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"Modified")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,Modified)
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =40
                     Required: =false
@@ -258,10 +258,10 @@
                     DataField: ="field_17"
                     Default: =ThisItem.'Assigned Note'
                     DisplayMode: =Parent.DisplayMode
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_17")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,'Assigned Note')
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
-                    MaxLength: =DataSourceInfo([@Corrective_Maintenance], DataSourceInfo.MaxLength, "field_17")
+                    MaxLength: =DataSourceInfo([@Corrective_Maintenance], DataSourceInfo.MaxLength, 'Assigned Note')
                     Required: =false
                     Update: =DataCardValue18.Text
                     Width: =If('Form Screen'.Width <1100, Parent.Width -30 , Parent.Width *2/3 - 10)
@@ -417,7 +417,7 @@
                     DataField: ="field_1"
                     Default: =ThisItem.TicketID
                     DisplayMode: =If(Form1.Mode = FormMode.New, DisplayMode.View,DisplayMode.View)
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_1")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,TicketID)
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: =false
@@ -516,7 +516,7 @@
                             Picture: ""
                         }, ThisItem.Requester)
                     DisplayMode: =DisplayMode.View
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"RequesterName")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,Requester)
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: =false
@@ -632,7 +632,7 @@
                     DisplayMode: |-
                         =If(Form1.Mode  =FormMode.New, DisplayMode.View ,
                         Parent.DisplayMode)
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_8")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,Status)
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: =false
@@ -729,7 +729,7 @@
                             DisplayMode.Edit,
                             DisplayMode.View
                         )
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_12")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,Priority)
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: =If(Form1.Mode  = FormMode.New,true,false)
@@ -840,7 +840,7 @@
                     DataField: ="field_9"
                     Default: =If(Form1.Mode = FormMode.New,Now(),ThisItem.'Request Date')
                     DisplayMode: =If(Form1.Mode = FormMode.New, DisplayMode.View,DisplayMode.View)
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_9")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,'Request Date')
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: =false
@@ -1045,7 +1045,7 @@
                             Form1.Mode = FormMode.Edit && varLevel = 2 , DisplayMode.Edit,
                             DisplayMode.View
                         )
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_13")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,'Due Date')
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: =false
@@ -1230,7 +1230,7 @@
                     DataField: ="field_7"
                     Default: =ThisItem.'Issue Category'
                     DisplayMode: =Parent.DisplayMode
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_7")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,'Issue Category')
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: =If(Form1.Mode  = FormMode.New,true,false)
@@ -1338,10 +1338,10 @@
                     DataField: ="field_3"
                     Default: =ThisItem.Issue
                     DisplayMode: =If(Form1.Mode = FormMode.New, DisplayMode.Edit,DisplayMode.View)
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_3")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,Issue)
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
-                    MaxLength: =DataSourceInfo([@Corrective_Maintenance], DataSourceInfo.MaxLength, "field_3")
+                    MaxLength: =DataSourceInfo([@Corrective_Maintenance], DataSourceInfo.MaxLength, Issue)
                     Required: =If(Form1.Mode  = FormMode.New,true,false)
                     Update: =DataCardValue3.Text
                     Width: =If('Form Screen'.Width <1100, Parent.Width -30 , Parent.Width /3)
@@ -1435,10 +1435,10 @@
                     DataField: ="field_4"
                     Default: =ThisItem.'Issue Description'
                     DisplayMode: =If(Form1.Mode = FormMode.New, DisplayMode.Edit,DisplayMode.View)
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_4")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,'Issue Description')
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
-                    MaxLength: =DataSourceInfo([@Corrective_Maintenance], DataSourceInfo.MaxLength, "field_4")
+                    MaxLength: =DataSourceInfo([@Corrective_Maintenance], DataSourceInfo.MaxLength, 'Issue Description')
                     Required: =If(Form1.Mode  = FormMode.New,true,false)
                     Update: =DataCardValue4.Text
                     Width: =If('Form Screen'.Width <1100, Parent.Width -30 , Parent.Width /3)
@@ -1532,7 +1532,7 @@
                     DataField: ="field_5"
                     Default: =ThisItem.Area
                     DisplayMode: =If(Form1.Mode = FormMode.New, DisplayMode.Edit,DisplayMode.View)
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_5")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,Area)
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: =If(Form1.Mode  = FormMode.New,true,false)
@@ -1660,10 +1660,10 @@
                     DataField: ="field_6"
                     Default: =ThisItem.Location
                     DisplayMode: =Parent.DisplayMode
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_6")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,Location)
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
-                    MaxLength: =DataSourceInfo([@Corrective_Maintenance], DataSourceInfo.MaxLength, "field_6")
+                    MaxLength: =DataSourceInfo([@Corrective_Maintenance], DataSourceInfo.MaxLength, Location)
                     Required: =If(Form1.Mode  = FormMode.New,true,false)
                     Update: =DataCardValue6.Text
                     Width: =If('Form Screen'.Width <1100, Parent.Width -30 , Parent.Width /3)
@@ -1754,7 +1754,7 @@
                             DisplayMode.Edit,
                             DisplayMode.View
                         )
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"AS")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,'Assigned to')
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: |-
@@ -1881,7 +1881,7 @@
                         //ThisItem.'PIC Confirm Date',Now());
                         If(Form1.Mode = FormMode.Edit,If(Datacardvalue_Status.Selected.Value = "DONE",Now(),ThisItem.'PIC Confirm Date'),ThisItem.'PIC Confirm Date')
                     DisplayMode: =Parent.DisplayMode
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_10")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,'PIC Confirm Date')
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: |-
@@ -2050,10 +2050,10 @@
                     DataField: ="field_11"
                     Default: =ThisItem.'PIC Note'
                     DisplayMode: =Parent.DisplayMode
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_11")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,'PIC Note')
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
-                    MaxLength: =DataSourceInfo([@Corrective_Maintenance], DataSourceInfo.MaxLength, "field_11")
+                    MaxLength: =DataSourceInfo([@Corrective_Maintenance], DataSourceInfo.MaxLength, 'PIC Note')
                     Required: |-
                         =If(
                             And(
@@ -2155,7 +2155,7 @@
                     DataField: ="field_19"
                     Default: =ThisItem.'Manpower require'
                     DisplayMode: =Parent.DisplayMode
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_19")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,'Manpower require')
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: |-
@@ -2251,7 +2251,7 @@
                     DataField: ="field_14"
                     Default: =ThisItem.'Duration (hours)'
                     DisplayMode: =DisplayMode.View
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_14")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,'Duration (hours)')
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =149
                     Required: |
@@ -2402,7 +2402,7 @@
                         =If(Form1.Mode = FormMode.New, DisplayMode.Disabled,
                         If(ThisItem.'Delay Reason'.Value =  Blank(),
                         DisplayMode.Edit, DisplayMode.View))
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"field_15")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,'Delay Reason')
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: =If(Form1.Mode = FormMode.New,false,If(ThisItem.'Due Date' <Today() ,true,false))
@@ -2495,7 +2495,7 @@
                     DataField: ="{Attachments}"
                     Default: =If(varItem.'Has attachments',varItem.Attachments)
                     DisplayMode: =Parent.DisplayMode
-                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,"{Attachments}")
+                    DisplayName: =DataSourceInfo([@Corrective_Maintenance],DataSourceInfo.DisplayName,Attachments)
                     Fill: =RGBA(0, 0, 0, 0)
                     Height: =50
                     Required: =false
