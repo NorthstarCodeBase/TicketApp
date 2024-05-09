@@ -7,7 +7,7 @@
   },
   "Properties": {
     "AppCreationSource": "AppFromScratch",
-    "AppDescription": "",
+    "AppDescription": "9-May-2024: Change area category (remove Ridgeback, add Paint Shop)",
     "AppPreviewFlagsMap": {
       "aibuilderserviceenrollment": false,
       "allowmultiplescreensincanvaspages": false,
@@ -47,7 +47,6 @@
       "enablepcfmoderndatasets": true,
       "enablerowscopeonetonexpand": false,
       "enablerpawarecomponentdependency": true,
-      "enablerulespanel": false,
       "enablesaveloadcleardataonweb": false,
       "enableupdateifdelegation": false,
       "errorhandling": true,
@@ -60,7 +59,6 @@
       "formularepair": true,
       "generatedebugpublishedapp": true,
       "herocontrols": false,
-      "improvedmediacapture": true,
       "improvedtabstopbehavior": true,
       "isemptyrequirestableargument": true,
       "keeprecentscreensloaded": true,
@@ -79,7 +77,6 @@
       "reactformulabar": true,
       "reliableconcurrent": true,
       "reservedkeywords": false,
-      "reverttooldpowerautomate": false,
       "rtlinstudiopreview": false,
       "rtlsupport": false,
       "showclassicthemes": false,
@@ -121,7 +118,7 @@
     "ShowStatusBar": false
   },
   "PublishInfo": {
-    "AppName": "NPV Ticket App",
+    "AppName": "15c20d81-879c-43c1-9bf1-d034410327b5",
     "BackgroundColor": "rgba(9, 33, 98, 1)",
     "IconColor": "RGBA(255,255,255,1)",
     "IconName": "",

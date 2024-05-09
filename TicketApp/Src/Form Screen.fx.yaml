@@ -1577,7 +1577,7 @@
                                 DataCardValue7.Selected.Value <> "5S-Safety",
                                 Switch(
                                     Self.Selected.Value,
-                                    "Ridgeback",
+                                    "Paint Shop",
                                     Set(
                                         varAssigned,
                                         Office365Users.UserProfileV2("tung.le@northstar.vn")
